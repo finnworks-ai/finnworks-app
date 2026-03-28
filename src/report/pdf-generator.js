@@ -226,10 +226,10 @@ function generatePDF(auditResult, url, customerEmail) {
           doc.rect(hx, y, metW, 64).fill(bg).stroke({ color: border, width: 1.5 });
           
           doc.fillColor(BRAND.text).fontSize(7.5).font('Helvetica-Bold');
-          put(doc, String(hl.label ?? '').slice(0, 40), hx + 8, y + 8, { width: metW - 16 });
+          put(doc, (hl.label || '').slice(0, 40), hx + 8, y + 8, { width: metW - 16 });
           
           doc.fillColor(BRAND.accent).fontSize(13).font('Helvetica-Bold');
-          put(doc, String(hl.value ?? '').slice(0, 30), hx + 8, y + 26, { width: metW - 16, align: 'left' });
+          put(doc, (hl.value || '').slice(0, 30), hx + 8, y + 26, { width: metW - 16, align: 'left' });
           
           doc.fillColor(BRAND.muted).fontSize(7.5).font('Helvetica');
           put(doc, 'Metric', hx + 8, y + 50);
