@@ -40,7 +40,7 @@ async function runAuditPipeline({ websiteUrl, customerEmail }) {
   console.log(`[pipeline] PDF done. Size: ${(pdfBuffer.length / 1024).toFixed(1)} KB`);
 
   // Step 5: Send email
-  console.log('[pipeline] Sending email...');
+  console.log(`[pipeline] Sending email... websiteUrl=${websiteUrl}`);
   const emailResult = await sendAuditEmail({ to: customerEmail, websiteUrl, pdfBuffer, overallScore: auditResult.overallScore });
   console.log(`[pipeline] Email sent. Message ID: ${emailResult.messageId}`);
 
