@@ -23,7 +23,7 @@ sendAuditEmail({
   to: testEmail,
   websiteUrl: testUrl,
   pdfBuffer,
-  overallScore: 57
+  overallScore: 58
 })
   .then(result => {
     console.log(`✅ Email sent successfully`);
