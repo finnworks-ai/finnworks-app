@@ -41,7 +41,7 @@ async function runAuditPipeline({ websiteUrl, customerEmail }) {
 
   // Step 5: Send email
   console.log(`[pipeline] Sending email... websiteUrl=${websiteUrl}`);
-  const emailResult = await sendAuditEmail({ to: customerEmail, websiteUrl, pdfBuffer, overallScore: auditResult.overallScore });
+  const emailResult = await sendAuditEmail({ to: customerEmail, websiteUrl, pdfBuffer, overallScore: auditResult.overallScore, actionPlan: auditResult.actionPlan });
   console.log(`[pipeline] Email sent. Message ID: ${emailResult.messageId}`);
 
   return {

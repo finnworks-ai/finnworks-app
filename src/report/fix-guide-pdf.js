@@ -1,10 +1,10 @@
 /**
  * Fix Guide PDF generator — premium branded step-by-step fix guide.
- * Rendered with PDFKit.
  *
  * Layout:
- *   Page 1: Cover
- *   Pages 2+: One fix per page (priority 1-6)
+ *   Page 1:   Cover (with Table of Contents)
+ *   Pages 2+: One fix per page (priority 1–6)
+ *   Final:    Completion checklist
  */
 
 'use strict';
@@ -12,30 +12,29 @@
 const PDFDocument = require('pdfkit');
 const { URL } = require('url');
 
-const BRAND = {
-  primary: '#0f172a',
+const C = {
+  dark:    '#0f172a',
+  card:    '#1e293b',
   accent:  '#6366f1',
-  light:   '#f8fafc',
-  border:  '#e2e8f0',
+  aLight:  '#818cf8',
   text:    '#1e293b',
   muted:   '#64748b',
+  border:  '#e2e8f0',
+  bg:      '#f8fafc',
   white:   '#ffffff',
   green:   '#10b981',
-  yellow:  '#f59e0b',
+  amber:   '#f59e0b',
   red:     '#ef4444',
+  code:    '#0f172a',
+  codeText:'#94f06c',
 };
 
-const EFFORT_COLORS = { Low: '#10b981', Medium: '#f59e0b', High: '#ef4444' };
-const IMPACT_COLORS = { Low: '#94a3b8', Medium: '#6366f1', High: '#10b981' };
+const EFFORT_COLOR = { Low: '#10b981', Medium: '#f59e0b', High: '#ef4444' };
+const IMPACT_COLOR = { Low: '#94a3b8', Medium: '#6366f1', High: '#10b981' };
 
-const PAGE_W = 595;
-const PAGE_H = 842;
-const MARGIN = 48;
-const CONTENT_W = PAGE_W - MARGIN * 2;
+const W = 595, H = 842, M = 48, CW = W - M * 2;
 
-function hex(c) { return c; }
-
-function put(doc, text, x, y, opts) {
+function put(doc, text, x, y, opts = {}) {
   doc.text(String(text), x, y, Object.assign({ lineBreak: false }, opts));
 }
 
@@ -53,182 +52,325 @@ function wrapLines(doc, text, maxWidth, fontSize, font) {
   return lines;
 }
 
-function drawCoverPage(doc, url, customerEmail, overallScore, totalFixes) {
+// Progress dots: ●●○○○○  (filled up to current, hollow for remaining)
+function drawProgressDots(doc, x, y, current, total) {
+  const dotR = 4, gap = 12;
+  for (let i = 0; i < total; i++) {
+    const dx = x + i * (dotR * 2 + gap);
+    if (i < current) {
+      doc.circle(dx, y, dotR).fill(C.accent);
+    } else {
+      doc.circle(dx, y, dotR).fill('none').stroke(C.accent);
+    }
+  }
+}
+
+// ──────────────────────────────────────────────────
+// COVER PAGE
+// ──────────────────────────────────────────────────
+function drawCoverPage(doc, url, customerEmail, overallScore, fixes) {
   const domain = new URL(url).hostname.replace('www.', '');
 
   // Background
-  doc.rect(0, 0, PAGE_W, PAGE_H).fill(BRAND.primary);
+  doc.rect(0, 0, W, H).fill(C.dark);
+  // Left accent bar
+  doc.rect(0, 0, 6, H).fill(C.accent);
 
-  // Accent bar
-  doc.rect(0, 0, 6, PAGE_H).fill(BRAND.accent);
+  // Brand
+  doc.fontSize(13).font('Helvetica-Bold').fillColor(C.accent);
+  put(doc, 'FINNWORKS AI', M, 48);
+  doc.fontSize(9).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Website Fix Guide', M, 66);
 
-  // Logo area
-  doc.fontSize(13).font('Helvetica-Bold').fillColor(BRAND.accent);
-  put(doc, 'FINNWORKS AI', MARGIN, 52);
+  // Main title
+  doc.fontSize(38).font('Helvetica-Bold').fillColor(C.white);
+  put(doc, 'Your Website', M, 140);
+  put(doc, 'Fix Guide', M, 184);
+  doc.rect(M, 232, 64, 3).fill(C.accent);
 
-  // Tag line
-  doc.fontSize(9).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'Website Fix Guide', MARGIN, 70);
+  // Domain + score badges
+  doc.roundedRect(M, 256, CW, 52, 8).fill(C.card);
+  doc.fontSize(11).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Prepared for:', M + 16, 268);
+  doc.fontSize(15).font('Helvetica-Bold').fillColor(C.white);
+  put(doc, domain, M + 16, 284);
 
-  // Main heading
-  doc.fontSize(34).font('Helvetica-Bold').fillColor(BRAND.white);
-  put(doc, 'Your Website', MARGIN, 160);
-  put(doc, 'Fix Guide', MARGIN, 200);
-
-  // Accent underline
-  doc.rect(MARGIN, 244, 60, 3).fill(BRAND.accent);
-
-  // Domain badge
-  doc.roundedRect(MARGIN, 270, CONTENT_W, 52, 8).fill('#1e293b');
-  doc.fontSize(11).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'Prepared for:', MARGIN + 16, 282);
-  doc.fontSize(14).font('Helvetica-Bold').fillColor(BRAND.white);
-  put(doc, domain, MARGIN + 16, 300);
-
-  // Score badge
   const scoreLabel = overallScore >= 75 ? 'Good' : overallScore >= 55 ? 'Fair' : 'Needs Work';
-  const scoreColor = overallScore >= 75 ? BRAND.green : overallScore >= 55 ? BRAND.yellow : BRAND.red;
-  doc.roundedRect(MARGIN, 350, 140, 80, 10).fill('#1e293b');
-  doc.fontSize(11).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'Audit Score', MARGIN + 16, 366);
-  doc.fontSize(28).font('Helvetica-Bold').fillColor(scoreColor);
-  put(doc, `${overallScore}`, MARGIN + 16, 386);
-  doc.fontSize(10).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, '/100  ' + scoreLabel, MARGIN + 54, 398);
+  const scoreColor = overallScore >= 75 ? C.green : overallScore >= 55 ? C.amber : C.red;
 
-  // Fixes count badge
-  doc.roundedRect(MARGIN + 160, 350, 140, 80, 10).fill('#1e293b');
-  doc.fontSize(11).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'Priority Fixes', MARGIN + 176, 366);
-  doc.fontSize(28).font('Helvetica-Bold').fillColor(BRAND.accent);
-  put(doc, `${totalFixes}`, MARGIN + 176, 386);
-  doc.fontSize(10).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'step-by-step', MARGIN + 210, 398);
+  doc.roundedRect(M, 330, 130, 80, 8).fill(C.card);
+  doc.fontSize(10).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Audit Score', M + 14, 346);
+  doc.fontSize(30).font('Helvetica-Bold').fillColor(scoreColor);
+  put(doc, String(overallScore), M + 14, 362);
+  doc.fontSize(9).font('Helvetica').fillColor(C.muted);
+  put(doc, '/100  ' + scoreLabel, M + 14 + 36, 376);
 
-  // Description
-  doc.fontSize(11).font('Helvetica').fillColor('#94a3b8');
-  doc.text(
-    'This guide contains prioritised, step-by-step instructions for every fix identified in your website audit. Each fix includes numbered steps, code snippets where relevant, and a pro tip from our team.',
-    MARGIN, 464, { width: CONTENT_W, lineBreak: true }
-  );
+  doc.roundedRect(M + 146, 330, 130, 80, 8).fill(C.card);
+  doc.fontSize(10).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Fixes Inside', M + 160, 346);
+  doc.fontSize(30).font('Helvetica-Bold').fillColor(C.accent);
+  put(doc, String(fixes.length), M + 160, 362);
+  doc.fontSize(9).font('Helvetica').fillColor(C.muted);
+  put(doc, 'step-by-step', M + 160, 376);
+
+  // Table of Contents
+  const tocY = 438;
+  doc.fontSize(9).font('Helvetica-Bold').fillColor(C.muted);
+  put(doc, 'WHAT\'S INSIDE', M, tocY, { characterSpacing: 1 });
+
+  fixes.forEach((fix, i) => {
+    const fy = tocY + 18 + i * 34;
+    // Row
+    doc.rect(M, fy, CW, 28).fill(C.card);
+    doc.rect(M, fy, 4, 28).fill(C.accent);
+
+    // Number
+    doc.circle(M + 20, fy + 14, 10).fill(C.accent);
+    doc.fontSize(9).font('Helvetica-Bold').fillColor(C.white);
+    put(doc, String(i + 1), M + 15, fy + 9, { width: 10, align: 'center' });
+
+    // Title
+    doc.fontSize(10).font('Helvetica-Bold').fillColor(C.white);
+    put(doc, (fix.title || '').slice(0, 60), M + 38, fy + 5);
+
+    // Effort / impact
+    doc.fontSize(8).font('Helvetica').fillColor(C.muted);
+    const ic = IMPACT_COLOR[fix.impact] || C.muted;
+    put(doc, `Impact: `, M + 38, fy + 17);
+    doc.fillColor(ic);
+    put(doc, (fix.impact || '—'), M + 38 + 38, fy + 17);
+    doc.fillColor(C.muted);
+    put(doc, `  ·  Effort: ${fix.effort || '—'}`, M + 38 + 38 + doc.widthOfString(fix.impact || '—'), fy + 17);
+  });
 
   // Footer
   const date = new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
-  doc.fontSize(8).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, `Prepared for: ${customerEmail}`, MARGIN, PAGE_H - 40);
-  put(doc, date, PAGE_W - MARGIN - 80, PAGE_H - 40);
-  put(doc, 'finnworks.ai', MARGIN, PAGE_H - 24);
+  doc.fontSize(8).font('Helvetica').fillColor('#334155');
+  put(doc, `Prepared for: ${customerEmail}`, M, H - 36);
+  put(doc, date, W - M - 100, H - 36, { width: 100, align: 'right' });
+  put(doc, 'finnworks.ai', M, H - 20);
 }
 
-function drawFixPage(doc, fix, pageNum, totalPages) {
-  // Background
-  doc.rect(0, 0, PAGE_W, PAGE_H).fill(BRAND.white);
+// ──────────────────────────────────────────────────
+// FIX PAGE
+// ──────────────────────────────────────────────────
+function drawFixPage(doc, fix, pageNum, totalFixes) {
+  // White background
+  doc.rect(0, 0, W, H).fill(C.white);
 
-  // Accent bar
-  doc.rect(0, 0, 6, PAGE_H).fill(BRAND.accent);
+  // Left accent bar
+  doc.rect(0, 0, 6, H).fill(C.accent);
 
   // Header strip
-  doc.rect(0, 0, PAGE_W, 56).fill(BRAND.primary);
-  doc.fontSize(10).font('Helvetica-Bold').fillColor(BRAND.accent);
-  put(doc, 'FINNWORKS AI', MARGIN, 14);
-  doc.fontSize(9).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'Website Fix Guide', MARGIN, 30);
-  doc.fontSize(9).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, `Fix ${fix.priority} of ${totalPages}`, PAGE_W - MARGIN - 50, 22);
+  doc.rect(0, 0, W, 56).fill(C.dark);
+  doc.fontSize(10).font('Helvetica-Bold').fillColor(C.accent);
+  put(doc, 'FINNWORKS AI', M, 12);
+  doc.fontSize(8.5).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Website Fix Guide', M, 26);
+
+  // Progress dots
+  drawProgressDots(doc, W / 2 - (totalFixes * 10 - 4), 28, fix.priority, totalFixes);
+
+  // Fix counter
+  doc.fontSize(9).font('Helvetica').fillColor(C.muted);
+  put(doc, `Fix ${fix.priority} of ${totalFixes}`, W - M - 54, 22);
+
+  // ── Badges row ──
+  let bx = M;
+  const by = 68;
 
   // Priority badge
-  const badgeColor = fix.impact === 'High' ? BRAND.green : fix.impact === 'Medium' ? BRAND.accent : BRAND.muted;
-  doc.roundedRect(MARGIN, 72, 80, 22, 4).fill(badgeColor);
-  doc.fontSize(9).font('Helvetica-Bold').fillColor(BRAND.white);
-  put(doc, `PRIORITY ${fix.priority}`, MARGIN + 8, 79);
+  const priColor = fix.impact === 'High' ? C.green : fix.impact === 'Medium' ? C.accent : C.muted;
+  doc.roundedRect(bx, by, 90, 24, 4).fill(priColor);
+  doc.fontSize(9).font('Helvetica-Bold').fillColor(C.white);
+  put(doc, `PRIORITY ${fix.priority}`, bx + 8, by + 7.5);
+  bx += 98;
 
   // Effort badge
-  const effortColor = EFFORT_COLORS[fix.effort] || BRAND.muted;
-  doc.roundedRect(MARGIN + 90, 72, 80, 22, 4).fill(effortColor + '22');
-  doc.fontSize(9).font('Helvetica').fillColor(effortColor);
-  put(doc, `${fix.effort} effort`, MARGIN + 98, 79);
+  const ec = EFFORT_COLOR[fix.effort] || C.muted;
+  doc.roundedRect(bx, by, 90, 24, 4).fill(ec + '22');
+  doc.fontSize(9).font('Helvetica').fillColor(ec);
+  put(doc, `${fix.effort || '—'} effort`, bx + 10, by + 7.5);
+  bx += 98;
 
   // Impact badge
-  const impactColor = IMPACT_COLORS[fix.impact] || BRAND.muted;
-  doc.roundedRect(MARGIN + 180, 72, 80, 22, 4).fill(impactColor + '22');
-  doc.fontSize(9).font('Helvetica').fillColor(impactColor);
-  put(doc, `${fix.impact} impact`, MARGIN + 188, 79);
+  const ic = IMPACT_COLOR[fix.impact] || C.muted;
+  doc.roundedRect(bx, by, 90, 24, 4).fill(ic + '22');
+  doc.fontSize(9).font('Helvetica').fillColor(ic);
+  put(doc, `${fix.impact || '—'} impact`, bx + 10, by + 7.5);
+  bx += 98;
 
-  // Fix title
-  doc.fontSize(20).font('Helvetica-Bold').fillColor(BRAND.primary);
-  doc.text(fix.title, MARGIN, 110, { width: CONTENT_W, lineBreak: true });
+  // Time estimate badge
+  const timeLabel = fix.effort === 'Low' ? '~30 min' : fix.effort === 'Medium' ? '~60 min' : '~2 hrs';
+  doc.roundedRect(bx, by, 78, 24, 4).fill('#e0e7ff');
+  doc.fontSize(9).font('Helvetica').fillColor(C.accent);
+  put(doc, `⏱ ${timeLabel}`, bx + 10, by + 7.5);
 
-  // Summary
-  const titleH = doc.y;
-  doc.roundedRect(MARGIN, titleH + 8, CONTENT_W, 1, 0).fill(BRAND.border);
-  doc.fontSize(11).font('Helvetica').fillColor(BRAND.text);
-  doc.text(fix.summary, MARGIN, titleH + 18, { width: CONTENT_W, lineBreak: true });
+  // ── Fix title ──
+  doc.fontSize(20).font('Helvetica-Bold').fillColor(C.text);
+  doc.text(fix.title, M, 108, { width: CW, lineBreak: true });
 
-  // Steps section
-  let y = doc.y + 18;
-  doc.fontSize(12).font('Helvetica-Bold').fillColor(BRAND.primary);
-  put(doc, 'Step-by-Step Instructions', MARGIN, y);
-  y += 20;
+  // ── "What this achieves" box ──
+  const achY = doc.y + 10;
+  const summaryLines = wrapLines(doc, fix.summary || '', CW - 20, 10, 'Helvetica');
+  const achH = summaryLines.length * 14 + 20;
+  doc.roundedRect(M, achY, CW, Math.max(achH, 42), 6).fill('#f0f4ff');
+  doc.rect(M, achY, 4, Math.max(achH, 42)).fill(C.accent);
+  doc.fontSize(7.5).font('Helvetica-Bold').fillColor(C.accent);
+  put(doc, 'WHAT THIS ACHIEVES', M + 12, achY + 8, { characterSpacing: 0.5 });
+  doc.fontSize(10).font('Helvetica').fillColor(C.text);
+  summaryLines.slice(0, 3).forEach((line, i) => put(doc, line, M + 12, achY + 20 + i * 14));
 
-  const steps = fix.steps || [];
+  // ── Steps ──
+  let y = doc.y + Math.max(achH, 42) + 16;
+  if (y < achY + Math.max(achH, 42) + 16) y = achY + Math.max(achH, 42) + 16;
+
+  doc.fontSize(12).font('Helvetica-Bold').fillColor(C.text);
+  put(doc, 'Step-by-Step Instructions', M, y);
+  y += 18;
+
+  const steps = (fix.steps || []);
   for (let i = 0; i < steps.length; i++) {
-    const step = steps[i];
-    const stepNum = `${i + 1}`;
-    const stepText = step.replace(/^Step \d+:\s*/i, '');
+    const stepText = steps[i].replace(/^Step \d+:\s*/i, '');
+    const sLines = wrapLines(doc, stepText, CW - 44, 9.5, 'Helvetica');
+    const sH = sLines.length * 14 + 20;
 
-    // Step number circle
-    doc.circle(MARGIN + 10, y + 8, 10).fill(BRAND.accent);
-    doc.fontSize(9).font('Helvetica-Bold').fillColor(BRAND.white);
-    put(doc, stepNum, MARGIN + 10 - (stepNum.length > 1 ? 5 : 3), y + 4);
+    if (y + sH > H - 120) break;
+
+    // Step card
+    doc.roundedRect(M, y, CW, sH, 5).fill(C.bg);
+    doc.rect(M, y, 1, sH).fill(C.accent);
+
+    // Number circle
+    doc.circle(M + 20, y + sH / 2, 11).fill(C.accent);
+    doc.fontSize(9).font('Helvetica-Bold').fillColor(C.white);
+    const sn = String(i + 1);
+    put(doc, sn, M + 20 - (sn.length > 1 ? 5 : 3.5), y + sH / 2 - 6);
 
     // Step text
-    doc.fontSize(10).font('Helvetica').fillColor(BRAND.text);
-    doc.text(stepText, MARGIN + 28, y, { width: CONTENT_W - 28, lineBreak: true });
-    y = doc.y + 8;
+    doc.fontSize(9.5).font('Helvetica').fillColor(C.text);
+    sLines.forEach((line, li) => put(doc, line, M + 38, y + 10 + li * 14));
 
-    if (y > PAGE_H - 180) break; // Safety guard
+    y += sH + 7;
   }
 
-  // Code snippet
-  if (fix.code && fix.code.trim()) {
-    y = doc.y + 10;
-    if (y < PAGE_H - 160) {
-      doc.fontSize(10).font('Helvetica-Bold').fillColor(BRAND.primary);
-      put(doc, 'Code Snippet', MARGIN, y);
-      y += 16;
+  // ── Code snippet ──
+  if (fix.code && fix.code.trim() && y < H - 120) {
+    y += 4;
+    doc.fontSize(10).font('Helvetica-Bold').fillColor(C.text);
+    put(doc, 'Code Snippet', M, y);
+    y += 14;
 
-      const codeLines = fix.code.split('\n');
-      const codeH = Math.min(codeLines.length * 14 + 16, 120);
-      doc.roundedRect(MARGIN, y, CONTENT_W, codeH, 6).fill('#0f172a');
+    const codeSnippet = fix.code.slice(0, 700);
+    const codeLines = codeSnippet.split('\n');
+    const codeH = Math.min(codeLines.length * 13 + 18, 130);
 
-      doc.fontSize(8).font('Courier').fillColor('#94f06c');
-      doc.text(fix.code.slice(0, 600), MARGIN + 10, y + 8, {
-        width: CONTENT_W - 20,
-        lineBreak: true,
-        lineGap: 2,
-      });
+    if (y + codeH < H - 80) {
+      doc.roundedRect(M, y, CW, codeH, 6).fill(C.code);
+      doc.fontSize(7.5).font('Courier').fillColor(C.codeText);
+      doc.text(codeSnippet, M + 10, y + 9, { width: CW - 20, lineBreak: true, lineGap: 2 });
       y = doc.y + 10;
     }
   }
 
-  // Pro tip
-  y = doc.y + 8;
-  if (y < PAGE_H - 80 && fix.proTip) {
-    doc.roundedRect(MARGIN, y, CONTENT_W, 44, 6).fill(BRAND.accent + '11');
-    doc.rect(MARGIN, y, 4, 44).fill(BRAND.accent);
-    doc.fontSize(9).font('Helvetica-Bold').fillColor(BRAND.accent);
-    put(doc, '💡 Pro Tip', MARGIN + 12, y + 8);
-    doc.fontSize(9).font('Helvetica').fillColor(BRAND.text);
-    doc.text(fix.proTip, MARGIN + 12, y + 22, { width: CONTENT_W - 20, lineBreak: true });
+  // ── Pro Tip ──
+  if (fix.proTip && y < H - 80) {
+    const tipLines = wrapLines(doc, fix.proTip, CW - 24, 9, 'Helvetica');
+    const tipH = tipLines.length * 13 + 28;
+    doc.roundedRect(M, y, CW, tipH, 6).fill(C.accent + '11');
+    doc.rect(M, y, 4, tipH).fill(C.accent);
+    doc.fontSize(8.5).font('Helvetica-Bold').fillColor(C.accent);
+    put(doc, '💡  Pro Tip', M + 12, y + 9);
+    doc.fontSize(9).font('Helvetica').fillColor(C.text);
+    tipLines.forEach((line, i) => put(doc, line, M + 12, y + 22 + i * 13));
+  }
+
+  // ── Footer ──
+  doc.rect(0, H - 30, W, 30).fill(C.dark);
+  doc.fontSize(7.5).font('Helvetica').fillColor('#334155');
+  put(doc, 'finnworks.ai', M, H - 17);
+  put(doc, `Fix ${fix.priority} of ${totalFixes} — ${(fix.title || '').slice(0, 50)}`, W / 2 - 90, H - 17);
+}
+
+// ──────────────────────────────────────────────────
+// COMPLETION CHECKLIST PAGE
+// ──────────────────────────────────────────────────
+function drawChecklistPage(doc, fixes, domain) {
+  doc.rect(0, 0, W, H).fill(C.white);
+  doc.rect(0, 0, W, 4).fill(C.accent);
+  doc.rect(0, 0, 6, H).fill(C.accent);
+
+  // Header
+  doc.rect(0, 0, W, 56).fill(C.dark);
+  doc.fontSize(10).font('Helvetica-Bold').fillColor(C.accent);
+  put(doc, 'FINNWORKS AI', M, 12);
+  doc.fontSize(8.5).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Website Fix Guide', M, 26);
+
+  let y = 72;
+  doc.fontSize(20).font('Helvetica-Bold').fillColor(C.text);
+  put(doc, 'Your Completion Checklist', M, y);
+  y += 14;
+  doc.fontSize(10).font('Helvetica').fillColor(C.muted);
+  put(doc, 'Tick each fix off as you go. Your score improves with every one you apply.', M, y + 2);
+  y += 28;
+
+  fixes.forEach((fix, i) => {
+    if (y + 52 > H - 80) return;
+
+    const ic = IMPACT_COLOR[fix.impact] || C.muted;
+
+    // Card
+    doc.rect(M, y, CW, 48).fill(C.bg).stroke(C.border);
+    doc.rect(M, y, 4, 48).fill(C.accent);
+
+    // Checkbox
+    doc.rect(M + 14, y + 16, 16, 16).fill(C.white).stroke(C.border);
+
+    // Number
+    doc.fontSize(9).font('Helvetica-Bold').fillColor(C.muted);
+    put(doc, String(i + 1), M + 38, y + 6);
+
+    // Title
+    doc.fontSize(10.5).font('Helvetica-Bold').fillColor(C.text);
+    put(doc, (fix.title || '').slice(0, 62), M + 52, y + 6);
+
+    // Meta
+    doc.fontSize(8.5).font('Helvetica').fillColor(C.muted);
+    put(doc, `Impact: `, M + 52, y + 22);
+    doc.fillColor(ic);
+    put(doc, (fix.impact || '—'), M + 52 + 38, y + 22);
+    doc.fillColor(C.muted);
+    const timeLabel = fix.effort === 'Low' ? '~30 min' : fix.effort === 'Medium' ? '~60 min' : '~2 hrs';
+    put(doc, `  ·  Est. time: ${timeLabel}`, M + 52 + 38 + doc.widthOfString(fix.impact || '—'), y + 22);
+
+    y += 54;
+  });
+
+  // Re-audit CTA
+  y += 12;
+  if (y + 72 < H - 30) {
+    doc.roundedRect(M, y, CW, 68, 8).fill('#1e1b4b');
+    doc.rect(M, y, 4, 68).fill(C.accent);
+    doc.fontSize(9).font('Helvetica-Bold').fillColor(C.aLight);
+    put(doc, 'SEE YOUR SCORE IMPROVE', M + 14, y + 12, { characterSpacing: 0.5 });
+    doc.fontSize(13).font('Helvetica-Bold').fillColor(C.white);
+    put(doc, `Once your fixes are live, re-run your free audit`, M + 14, y + 28);
+    doc.fontSize(10).font('Helvetica').fillColor(C.muted);
+    put(doc, `finnworks.ai  ·  Enter the same URL to track your progress`, M + 14, y + 46);
   }
 
   // Footer
-  doc.rect(0, PAGE_H - 32, PAGE_W, 32).fill(BRAND.primary);
-  doc.fontSize(8).font('Helvetica').fillColor(BRAND.muted);
-  put(doc, 'finnworks.ai', MARGIN, PAGE_H - 18);
-  put(doc, `Fix ${fix.priority} of ${totalPages} — ${fix.title}`, PAGE_W / 2 - 80, PAGE_H - 18);
+  doc.rect(0, H - 30, W, 30).fill(C.dark);
+  doc.fontSize(7.5).font('Helvetica').fillColor('#334155');
+  put(doc, 'finnworks.ai', M, H - 17);
+  put(doc, `${domain} — Fix Guide`, W / 2 - 60, H - 17);
 }
 
+// ──────────────────────────────────────────────────
+// MAIN EXPORT
+// ──────────────────────────────────────────────────
 async function generateFixGuidePDF(fixGuide, customerEmail) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -240,15 +382,23 @@ async function generateFixGuidePDF(fixGuide, customerEmail) {
 
     const { url, overallScore, fixes } = fixGuide;
 
+    let domain;
+    try { domain = new URL(url).hostname.replace('www.', ''); }
+    catch (_) { domain = url; }
+
     // Cover page
     doc.addPage({ size: 'A4', margin: 0 });
-    drawCoverPage(doc, url, customerEmail, overallScore, fixes.length);
+    drawCoverPage(doc, url, customerEmail, overallScore, fixes);
 
     // One page per fix
     for (const fix of fixes) {
       doc.addPage({ size: 'A4', margin: 0 });
       drawFixPage(doc, fix, fix.priority, fixes.length);
     }
+
+    // Completion checklist
+    doc.addPage({ size: 'A4', margin: 0 });
+    drawChecklistPage(doc, fixes, domain);
 
     doc.end();
   });

@@ -4,393 +4,729 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinnWorks AI — Free Website Audit</title>
-  <meta name="description" content="Get a free AI-powered website audit in minutes. See exactly what's hurting your site — then fix it with a step-by-step guide.">
+  <meta name="description" content="Find out exactly what's holding your website back. Finn, our AI analyst, checks performance, SEO, mobile, content, and trust — and sends you a full report in minutes. Free.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --border: #334155;
-      --accent: #6366f1;
+      --bg:           #f1f5f9;
+      --white:        #ffffff;
+      --dark:         #0f172a;
+      --dark-card:    #1e293b;
+      --border:       #e2e8f0;
+      --accent:       #6366f1;
+      --accent-dark:  #4f46e5;
       --accent-light: #818cf8;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --green: #10b981;
+      --text:         #1e293b;
+      --muted:        #64748b;
+      --green:        #10b981;
+      --amber:        #f59e0b;
+      --red:          #ef4444;
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      line-height: 1.6;
     }
 
     /* ── Nav ── */
+    .nav-wrap { background: var(--dark); position: sticky; top: 0; z-index: 100; }
     nav {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      max-width: 1040px; margin: 0 auto; padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .logo { font-size: 16px; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; }
-    .logo span { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; }
+    .logo { font-size: 15px; font-weight: 800; color: white; letter-spacing: 0.04em; text-decoration: none; }
+    .logo span { color: var(--accent-light); }
+    .nav-cta {
+      background: var(--accent); color: white; text-decoration: none;
+      font-size: 13px; font-weight: 600; padding: 8px 18px;
+      border-radius: 8px; transition: background 0.15s;
+    }
+    .nav-cta:hover { background: var(--accent-dark); }
 
     /* ── Hero ── */
-    .hero {
-      text-align: center;
-      padding: 72px 24px 56px;
-      max-width: 720px;
-      margin: 0 auto;
+    .hero { background: var(--dark); padding: 64px 24px 80px; text-align: center; }
+    .powered-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 100px; padding: 5px 14px; margin-bottom: 28px;
+      font-size: 12px; color: var(--accent-light); font-weight: 600; letter-spacing: 0.03em;
     }
-    .badge {
-      display: inline-block;
-      background: #6366f122;
-      border: 1px solid var(--accent);
-      color: var(--accent-light);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 14px;
-      border-radius: 100px;
-      margin-bottom: 24px;
-      letter-spacing: 0.04em;
+    .hero h1 {
+      font-size: clamp(30px, 5.5vw, 52px); font-weight: 800; color: white;
+      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px;
+      max-width: 700px; margin-left: auto; margin-right: auto;
     }
-    h1 {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-    }
-    h1 span { color: var(--accent); }
-    .subtitle {
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 560px;
-      margin: 0 auto 40px;
+    .hero h1 span { color: var(--accent-light); }
+    .hero .sub {
+      font-size: 17px; color: #94a3b8; max-width: 560px;
+      margin: 0 auto 40px; line-height: 1.65;
     }
 
-    /* ── Form card ── */
+    /* Form card */
     .form-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 36px;
-      max-width: 560px;
-      margin: 0 auto;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      background: var(--dark-card); border: 1px solid #334155;
+      border-radius: 20px; padding: 32px; max-width: 500px;
+      margin: 0 auto; box-shadow: 0 32px 80px rgba(0,0,0,0.5);
     }
     .form-card label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      display: block; font-size: 12px; font-weight: 600; color: #94a3b8;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
     }
     .form-card input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 15px;
-      padding: 13px 16px;
-      outline: none;
+      width: 100%; background: #0f172a; border: 1px solid #334155;
+      border-radius: 10px; color: white; font-size: 15px;
+      padding: 13px 16px; outline: none; margin-bottom: 14px;
       transition: border-color 0.15s;
-      margin-bottom: 16px;
     }
     .form-card input:focus { border-color: var(--accent); }
     .form-card input::placeholder { color: #475569; }
-
     .submit-btn {
-      width: 100%;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: 700;
-      padding: 15px;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      margin-top: 4px;
+      width: 100%; background: var(--accent); color: white; border: none;
+      border-radius: 10px; font-size: 16px; font-weight: 700; padding: 15px;
+      cursor: pointer; transition: background 0.15s, transform 0.1s; margin-top: 4px;
     }
-    .submit-btn:hover { background: #4f46e5; }
-    .submit-btn:active { transform: scale(0.98); }
-    .submit-btn:disabled { background: #334155; color: var(--muted); cursor: not-allowed; }
-
-    .fine-print {
-      font-size: 12px;
-      color: #475569;
-      text-align: center;
-      margin-top: 14px;
-    }
-
-    /* ── Status messages ── */
+    .submit-btn:hover { background: var(--accent-dark); }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+    .fine-print { font-size: 12px; color: #475569; text-align: center; margin-top: 12px; }
     .status {
-      display: none;
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 500;
+      display: none; margin-top: 14px; padding: 13px 16px;
+      border-radius: 10px; font-size: 14px; font-weight: 500;
     }
-    .status.success { background: #10b98122; border: 1px solid var(--green); color: var(--green); display: block; }
-    .status.error { background: #ef444422; border: 1px solid #ef4444; color: #ef4444; display: block; }
+    .status.success { background: rgba(16,185,129,0.1); border: 1px solid var(--green); color: var(--green); display: block; }
+    .status.error   { background: rgba(239,68,68,0.1);  border: 1px solid var(--red);   color: var(--red);   display: block; }
 
-    /* ── What you get ── */
-    .what-you-get {
-      max-width: 900px;
-      margin: 72px auto 0;
-      padding: 0 24px;
+    /* ── Trust strip ── */
+    .trust-strip { background: var(--white); border-bottom: 1px solid var(--border); padding: 18px 24px; }
+    .trust-strip-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      gap: 28px; flex-wrap: wrap;
     }
-    .what-you-get h2 {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); font-weight: 500; }
+    .trust-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .trust-sep { color: #cbd5e1; }
+
+    /* ── Section scaffold ── */
+    .section { padding: 72px 24px; }
+    .section.alt   { background: var(--bg); }
+    .section.white { background: var(--white); }
+    .section.dark  { background: var(--dark); }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
     }
-    .what-you-get .sub {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 48px;
-      font-size: 15px;
+    .section-title {
+      font-size: clamp(24px, 4vw, 36px); font-weight: 800;
+      letter-spacing: -0.02em; margin-bottom: 12px; color: var(--text);
     }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+    .section-sub { font-size: 16px; color: var(--muted); margin-bottom: 48px; max-width: 600px; line-height: 1.6; }
+
+    /* ── Finn intro ── */
+    .finn-box {
+      background: #eef2ff; border: 1px solid #c7d2fe;
+      border-radius: 16px; padding: 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+      max-width: 640px; margin: 0 auto;
     }
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
+    .finn-avatar {
+      width: 48px; height: 48px; background: var(--accent); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
     }
-    .feature-card .icon { font-size: 28px; margin-bottom: 12px; }
-    .feature-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .finn-box p { font-size: 14px; color: #3730a3; line-height: 1.65; }
+    .finn-box strong { color: #312e81; }
+
+    /* ── Audit categories ── */
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .cat-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .cat-icon { font-size: 26px; margin-bottom: 12px; }
+    .cat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .cat-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .cat-example {
+      margin-top: 12px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 12px;
+      font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.5;
+    }
 
     /* ── How it works ── */
-    .how {
-      max-width: 700px;
-      margin: 80px auto 0;
-      padding: 0 24px;
-      text-align: center;
-    }
-    .how h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
-    .how .sub { color: var(--muted); margin-bottom: 40px; font-size: 15px; }
-    .steps { display: flex; flex-direction: column; gap: 16px; text-align: left; }
-    .step {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px;
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .step-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
     .step-num {
-      min-width: 32px;
-      height: 32px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      flex-shrink: 0;
+      width: 36px; height: 36px; background: var(--accent); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 700; color: white; margin-bottom: 16px;
     }
-    .step h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .step-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .step-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
-    /* ── Upsell strip ── */
-    .upsell {
-      max-width: 720px;
-      margin: 80px auto 0;
-      padding: 0 24px;
+    /* ── Sample report preview ── */
+    .report-preview {
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      max-width: 600px; margin: 0 auto;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1); position: relative;
     }
-    .upsell-card {
-      background: linear-gradient(135deg, #312e81, #1e1b4b);
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 40px;
-      text-align: center;
+    .preview-tag {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      background: var(--amber); color: white; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em; padding: 3px 9px; border-radius: 5px; text-transform: uppercase;
     }
-    .upsell-card .eyebrow { color: var(--accent-light); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
-    .upsell-card h2 { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
-    .upsell-card .desc { color: #c7d2fe; font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
-    .upsell-features { list-style: none; text-align: left; max-width: 360px; margin: 0 auto 28px; }
-    .upsell-features li { font-size: 14px; color: #c7d2fe; padding: 5px 0; }
-    .upsell-features li::before { content: "✓  "; color: var(--green); font-weight: 700; }
-    .price { font-size: 36px; font-weight: 800; margin-bottom: 4px; }
-    .price-sub { color: #818cf8; font-size: 13px; margin-bottom: 24px; }
+    .rp-header {
+      background: var(--dark); padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .rp-brand { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 0.06em; }
+    .rp-subtitle { font-size: 10px; color: #475569; }
+    .rp-body { background: var(--white); padding: 22px 18px; }
+    .rp-score-row {
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border);
+    }
+    .rp-circle {
+      width: 62px; height: 62px; border-radius: 50%; background: var(--amber);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .rp-grade { font-size: 28px; font-weight: 800; color: white; line-height: 1; }
+    .rp-score-meta h3 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+    .rp-score-meta p { font-size: 12px; color: var(--muted); }
+    .rp-score-meta small { font-size: 11px; color: #94a3b8; }
+    .rp-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .rp-pill {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px; text-align: center;
+      flex: 1; min-width: 72px;
+    }
+    .rp-pill .pg { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .rp-pill .pl { font-size: 10px; color: var(--muted); }
+    .rp-wins-label {
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
+    }
+    .rp-win { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; }
+    .rp-win-num {
+      width: 18px; height: 18px; background: var(--accent); border-radius: 50%;
+      color: white; font-size: 9px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .rp-win-title { font-size: 12px; color: var(--text); font-weight: 500; }
+    .rp-win-meta  { font-size: 11px; color: var(--muted); }
+
+    /* ── Fix Guide upsell ── */
+    .upsell-inner {
+      max-width: 960px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
+    }
+    @media (max-width: 720px) { .upsell-inner { grid-template-columns: 1fr; gap: 36px; } }
+    .upsell-left { color: white; }
+    .upsell-eyebrow {
+      font-size: 12px; font-weight: 700; color: var(--accent-light);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .upsell-left h2 {
+      font-size: clamp(22px, 3.5vw, 34px); font-weight: 800;
+      line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .upsell-left > p { font-size: 15px; color: #94a3b8; line-height: 1.65; margin-bottom: 24px; }
+    .upsell-features { list-style: none; margin-bottom: 28px; }
+    .upsell-features li {
+      font-size: 14px; color: #cbd5e1; padding: 6px 0;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .upsell-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .upsell-price { font-size: 42px; font-weight: 800; color: white; line-height: 1; }
+    .upsell-price sub { font-size: 18px; color: #94a3b8; vertical-align: baseline; }
+    .upsell-price-note { font-size: 13px; color: #64748b; margin: 4px 0 22px; }
+
+    /* Direct purchase form */
+    .upgrade-form input {
+      width: 100%; background: #1e293b; border: 1px solid #334155;
+      border-radius: 10px; color: white; font-size: 14px;
+      padding: 12px 14px; outline: none; margin-bottom: 10px;
+      transition: border-color 0.15s;
+    }
+    .upgrade-form input:focus { border-color: var(--accent); }
+    .upgrade-form input::placeholder { color: #475569; }
+    .upgrade-btn {
+      width: 100%; background: var(--green); color: white; border: none;
+      border-radius: 10px; font-size: 15px; font-weight: 700;
+      padding: 14px; cursor: pointer; transition: background 0.15s;
+    }
+    .upgrade-btn:hover { background: #059669; }
+    .or-free-note { text-align: center; font-size: 12px; color: #475569; margin-top: 12px; }
+    .or-free-note a { color: var(--accent-light); text-decoration: none; }
+
+    /* Fix preview card */
+    .fix-card {
+      background: var(--dark-card); border: 1px solid #334155;
+      border-radius: 14px; overflow: hidden;
+    }
+    .fix-card-header {
+      background: #0f172a; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .fix-card-brand { font-size: 10px; font-weight: 700; color: var(--accent-light); letter-spacing: 0.06em; }
+    .fix-card-badge {
+      background: var(--green); color: white; font-size: 10px; font-weight: 700;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .fix-card-body { padding: 16px; }
+    .fix-card-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 6px; }
+    .fix-card-summary { font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 14px; }
+    .fix-step { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .fix-step-num {
+      width: 22px; height: 22px; border-radius: 50%; background: var(--accent);
+      color: white; font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .fix-step-text { font-size: 12px; color: #cbd5e1; line-height: 1.45; }
+    .fix-step.blurred .fix-step-text { filter: blur(4px); user-select: none; color: #64748b; }
+    .fix-step.blurred .fix-step-num { opacity: 0.35; }
+    .fix-card-lock {
+      background: linear-gradient(to bottom, transparent, #1e293b);
+      margin-top: -16px; padding: 20px 16px 14px; text-align: center;
+    }
+    .fix-card-lock p { font-size: 12px; color: #475569; }
+    .fix-card-caption { font-size: 12px; color: #475569; text-align: center; margin-top: 10px; }
+
+    /* ── FAQ ── */
+    .faq-list { max-width: 680px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: 10px; background: var(--white); overflow: hidden;
+    }
+    .faq-q {
+      width: 100%; background: none; border: none; padding: 18px 20px;
+      text-align: left; font-size: 15px; font-weight: 600; color: var(--text);
+      cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; gap: 12px;
+    }
+    .faq-q:hover { color: var(--accent); }
+    .faq-chevron { font-size: 20px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a {
+      display: none; padding: 0 20px 18px;
+      font-size: 14px; color: var(--muted); line-height: 1.65;
+      border-top: 1px solid var(--border);
+    }
+    .faq-item.open .faq-a { display: block; }
 
     /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 56px 24px 32px;
-      color: #334155;
-      font-size: 13px;
+    footer { background: var(--dark); padding: 44px 24px; text-align: center; }
+    .footer-inner { max-width: 600px; margin: 0 auto; }
+    .footer-logo { font-size: 15px; font-weight: 800; color: white; letter-spacing: 0.04em; margin-bottom: 14px; }
+    .footer-logo span { color: var(--accent-light); }
+    .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }
+    .footer-links a { font-size: 13px; color: #64748b; text-decoration: none; }
+    .footer-links a:hover { color: var(--accent-light); }
+    .footer-copy { font-size: 13px; color: #334155; margin-bottom: 8px; }
+    .footer-secure { font-size: 12px; color: #334155; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .hero { padding: 48px 16px 60px; }
+      .form-card { padding: 24px; }
+      .trust-sep { display: none; }
+      .section { padding: 56px 16px; }
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">FINNWORKS AI <span>Website Audits</span></div>
-</nav>
+<!-- ── Nav ── -->
+<div class="nav-wrap">
+  <nav>
+    <a href="/" class="logo">FINNWORKS<span> AI</span></a>
+    <a href="#audit-form" class="nav-cta">Get my free audit</a>
+  </nav>
+</div>
 
+<!-- ── Hero ── -->
 <section class="hero">
-  <div class="badge">Free — No credit card required</div>
-  <h1>Find out what's <span>holding your website back</span></h1>
-  <p class="subtitle">Enter your website below. We'll analyse your performance, SEO, mobile experience, content, and trust signals — and send you a full report in minutes.</p>
+  <div class="powered-badge">⚡ Powered by Google PageSpeed + OpenAI GPT-4o</div>
 
-  <div class="form-card">
+  <h1>Is your website <span>costing you customers?</span></h1>
+  <p class="sub">Most small business websites have 3–5 issues silently driving visitors away. Finn, our AI analyst, finds them — and sends you a full report in minutes. Free.</p>
+
+  <div class="form-card" id="audit-form">
     <form id="auditForm">
       <label for="urlInput">Your website URL</label>
-      <input type="text" id="urlInput" name="url" placeholder="e.g. yoursite.co.nz" autocomplete="url" required>
+      <input type="text" id="urlInput" name="url" placeholder="yoursite.co.nz" autocomplete="url" required>
 
-      <label for="emailInput">Your email address</label>
+      <label for="emailInput">Where should we send your report?</label>
       <input type="email" id="emailInput" name="email" placeholder="you@example.com" autocomplete="email" required>
 
-      <button type="submit" class="submit-btn" id="submitBtn">Get my free audit →</button>
-      <p class="fine-print">Your report will arrive within 3–5 minutes. We don't spam.</p>
+      <button type="submit" class="submit-btn" id="submitBtn">Analyse my website — it's free →</button>
+      <p class="fine-print">No credit card. No account. Report in your inbox in ~3 minutes.</p>
     </form>
-
     <div class="status" id="statusMsg"></div>
   </div>
 </section>
 
-<section class="what-you-get">
-  <h2>What's in your audit</h2>
-  <p class="sub">A 5-section report covering everything that affects your site's visibility and conversions.</p>
-  <div class="cards">
-    <div class="feature-card">
-      <div class="icon">⚡</div>
-      <h3>Performance & Speed</h3>
-      <p>Mobile and desktop scores, load time, and what's slowing you down.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🔍</div>
-      <h3>SEO Foundations</h3>
-      <p>Title tags, meta descriptions, headings, and image alt text — the basics Google cares about.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">📱</div>
-      <h3>Mobile Experience</h3>
-      <p>How your site performs for the 60%+ of visitors on mobile devices.</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">✍️</div>
-      <h3>Content & Messaging</h3>
-      <p>Does your homepage say what you do within 5 seconds? Is there a clear call to action?</p>
-    </div>
-    <div class="feature-card">
-      <div class="icon">🛡️</div>
-      <h3>Trust & Credibility</h3>
-      <p>HTTPS, privacy policy, testimonials, and other signals that turn visitors into customers.</p>
+<!-- ── Trust strip ── -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="trust-item"><span class="trust-dot"></span>Google PageSpeed API</div>
+    <span class="trust-sep">·</span>
+    <div class="trust-item"><span class="trust-dot"></span>OpenAI GPT-4o analysis</div>
+    <span class="trust-sep">·</span>
+    <div class="trust-item"><span class="trust-dot"></span>9 categories, 70+ data points</div>
+    <span class="trust-sep">·</span>
+    <div class="trust-item"><span class="trust-dot"></span>We never share your email</div>
+  </div>
+</div>
+
+<!-- ── Meet Finn ── -->
+<section class="section white">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label">Your AI Analyst</div>
+    <h2 class="section-title">Meet Finn</h2>
+    <p class="section-sub" style="margin: 0 auto 28px;">Not a person. Better than a template.</p>
+    <div class="finn-box">
+      <div class="finn-avatar">🤖</div>
+      <p><strong>Finn is an AI analyst</strong> trained to review small business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
     </div>
   </div>
 </section>
 
-<section class="how">
-  <h2>How it works</h2>
-  <p class="sub">Three steps. Takes about 3 minutes.</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <h3>Enter your website URL and email</h3>
-        <p>Just the URL — no login, no credit card, no friction.</p>
+<!-- ── What Finn checks ── -->
+<section class="section alt">
+  <div class="section-inner">
+    <div class="section-label">What Finn checks</div>
+    <h2 class="section-title">9 categories. 70+ data points. One clear report.</h2>
+    <p class="section-sub">Every audit covers nine areas a professional web consultant would review — from technical performance through to AI search visibility and accessibility.</p>
+
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon">⚡</div>
+        <h3>Performance &amp; Speed</h3>
+        <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
+        <div class="cat-example">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>
-        <h3>We run the analysis</h3>
-        <p>Our AI scans your site across 5 categories and generates a detailed PDF report.</p>
+      <div class="cat-card">
+        <div class="cat-icon">🔍</div>
+        <h3>SEO Foundations</h3>
+        <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
+        <div class="cat-example">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>
-        <h3>You get a full report in your inbox</h3>
-        <p>With your overall score, what's working, what needs fixing, and a priority action plan.</p>
+      <div class="cat-card">
+        <div class="cat-icon">📱</div>
+        <h3>Mobile Experience</h3>
+        <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
+        <div class="cat-example">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">✍️</div>
+        <h3>Content &amp; Messaging</h3>
+        <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
+        <div class="cat-example">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🛡️</div>
+        <h3>Trust &amp; Credibility</h3>
+        <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
+        <div class="cat-example">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🤖</div>
+        <h3>GEO / AEO</h3>
+        <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
+        <div class="cat-example">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">📍</div>
+        <h3>Local SEO</h3>
+        <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
+        <div class="cat-example">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">🎯</div>
+        <h3>Conversion &amp; UX</h3>
+        <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
+        <div class="cat-example">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon">♿</div>
+        <h3>Accessibility</h3>
+        <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
+        <div class="cat-example">"Under the NZ Human Rights Act, public-facing websites should be reasonably accessible. Most aren't."</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="upsell">
-  <div class="upsell-card">
-    <p class="eyebrow">Want us to go deeper?</p>
-    <h2>Fix Guide — $49</h2>
-    <p class="desc">Once you've read your audit, upgrade to get step-by-step fix instructions for every priority issue — with code snippets ready to hand to your developer.</p>
-    <ul class="upsell-features">
-      <li>6 priority fixes, fully detailed</li>
-      <li>Numbered steps for each fix</li>
-      <li>Copy-paste code snippets included</li>
-      <li>Pro tips from our team</li>
-      <li>Ready to hand to your web developer</li>
-    </ul>
-    <p style="color: #818cf8; font-size: 14px;">The upgrade link is included in your free audit email.</p>
+<!-- ── How it works ── -->
+<section class="section white">
+  <div class="section-inner">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">Three steps. About 3 minutes.</h2>
+    <p class="section-sub">No signup. No waiting days for a callback. Just your URL, your email, and a full report — fast.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Enter your URL and email</h3>
+        <p>Just your website address and where to send the report. No account, no credit card.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Finn analyses your site</h3>
+        <p>Finn checks 9 categories across 70+ data points — performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility — and generates your personalised PDF report.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Get your report in minutes</h3>
+        <p>A full PDF audit lands in your inbox with your score, what's working, what needs fixing, and a priority action plan.</p>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- ── Sample report preview ── -->
+<section class="section alt">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label">What you'll receive</div>
+    <h2 class="section-title">Here's what a real report looks like</h2>
+    <p class="section-sub" style="margin: 0 auto 36px;">Every report is generated fresh for your specific site — not a template. This is a sample of the cover page.</p>
+
+    <div class="report-preview">
+      <div class="preview-tag">Example</div>
+      <div class="rp-header">
+        <span class="rp-brand">FINNWORKS AI</span>
+        <span class="rp-subtitle">Website Audit Report</span>
+      </div>
+      <div class="rp-body">
+        <div class="rp-score-row">
+          <div class="rp-circle">
+            <div class="rp-grade">C</div>
+          </div>
+          <div class="rp-score-meta">
+            <h3>58 / 100</h3>
+            <p>Overall Health Score — clear room to improve</p>
+            <small>example-business.co.nz · analysed by Finn AI</small>
+          </div>
+        </div>
+        <div class="rp-pills">
+          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">Performance</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">SEO</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Mobile</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#34d399;">B</div><div class="pl">Content</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">Trust</div></div>
+        </div>
+        <div class="rp-pills">
+          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">GEO/AEO</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Local SEO</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#34d399;">B</div><div class="pl">Conversion</div></div>
+          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Accessibility</div></div>
+        </div>
+        <div class="rp-wins-label">Priority Quick Wins</div>
+        <div class="rp-win">
+          <div class="rp-win-num">1</div>
+          <div>
+            <div class="rp-win-title">Reduce image file sizes — images are 68% of your page weight</div>
+            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+          </div>
+        </div>
+        <div class="rp-win">
+          <div class="rp-win-num">2</div>
+          <div>
+            <div class="rp-win-title">Add a privacy policy — currently missing, browsers may warn visitors</div>
+            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+          </div>
+        </div>
+        <div class="rp-win">
+          <div class="rp-win-num">3</div>
+          <div>
+            <div class="rp-win-title">Rewrite your page title — currently "Home" which tells Google nothing</div>
+            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size: 13px; color: var(--muted); margin-top: 16px;">Your report also includes detailed section breakdowns and a full 6-item action plan.</p>
+  </div>
+</section>
+
+<!-- ── Fix Guide upsell ── -->
+<section class="section dark">
+  <div class="upsell-inner">
+    <!-- Left: copy + purchase form -->
+    <div class="upsell-left">
+      <div class="upsell-eyebrow">Fix Guide — $49 one-time</div>
+      <h2>Get the exact steps to fix every issue on your site</h2>
+      <p>The free audit tells you <em>what's wrong</em>. The Fix Guide tells you <em>exactly how to fix it</em> — with numbered step-by-step instructions and copy-paste code snippets for every priority issue. Ready to hand to your web developer, or follow yourself.</p>
+      <ul class="upsell-features">
+        <li>6 priority fixes ranked by impact</li>
+        <li>Step-by-step numbered instructions for each fix</li>
+        <li>Copy-paste code snippets where relevant</li>
+        <li>Time estimate so you can plan the work</li>
+        <li>Specific to your site — not generic advice</li>
+        <li>One-time purchase, yours to keep</li>
+      </ul>
+      <div class="upsell-price">$49 <sub>NZD</sub></div>
+      <div class="upsell-price-note">One-time · Instant email delivery · No subscription</div>
+
+      <form class="upgrade-form" id="upgradeForm">
+        <input type="text"  id="upgradeUrl"   placeholder="yoursite.co.nz"   required>
+        <input type="email" id="upgradeEmail" placeholder="your@email.com"   required>
+        <button type="submit" class="upgrade-btn">Get my Fix Guide → $49</button>
+      </form>
+      <p class="or-free-note">Or <a href="#audit-form">run the free audit first</a> — your personalised upgrade link will be in the report email.</p>
+    </div>
+
+    <!-- Right: fix preview card -->
+    <div>
+      <div class="fix-card">
+        <div class="fix-card-header">
+          <span class="fix-card-brand">FIX GUIDE PREVIEW</span>
+          <span class="fix-card-badge">Fix 1 of 6</span>
+        </div>
+        <div class="fix-card-body">
+          <div class="fix-card-title">Reduce image file sizes</div>
+          <div class="fix-card-summary">Your images account for 68% of your total page weight, causing slow load times and a poor mobile experience. Optimising them is the single highest-impact change you can make.</div>
+
+          <div class="fix-step">
+            <div class="fix-step-num">1</div>
+            <div class="fix-step-text">Go to <strong style="color:white;">tinypng.com</strong> and upload every image used on your homepage.</div>
+          </div>
+          <div class="fix-step blurred">
+            <div class="fix-step-num">2</div>
+            <div class="fix-step-text">Download the compressed versions and replace the originals in your website's media library.</div>
+          </div>
+          <div class="fix-step blurred">
+            <div class="fix-step-num">3</div>
+            <div class="fix-step-text">Convert hero images to WebP format using Squoosh — reduces file size by a further 25% with no visible quality loss.</div>
+          </div>
+
+          <div class="fix-card-lock">
+            <p>Steps 2–5 + code snippets unlocked in Fix Guide</p>
+          </div>
+        </div>
+      </div>
+      <p class="fix-card-caption">← Example fix from a real guide. Yours will be specific to your site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section white">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label">Questions</div>
+    <h2 class="section-title" style="margin-bottom: 40px;">Frequently asked questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">Is the audit really free? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Yes — completely free. No credit card, no account, no trial. Enter your URL and email and you'll receive a full PDF report in your inbox within a few minutes. There's nothing to pay.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does it take? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Finn runs the analysis in the background and your report is usually in your inbox within 3–5 minutes. You don't need to stay on the page — just check your email.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What happens to my email address? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">We use your email only to send your audit report (and your Fix Guide if you purchase one). We don't sell or share your email with anyone, and we don't add you to a mailing list. You can reply to your report email at any time to unsubscribe.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Who is this for? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">FinnWorks is built for small business owners who have a website but aren't technical developers. The free report is written in plain English — no jargon. The Fix Guide is designed to be handed directly to a web developer, or followed yourself if you're comfortable with basic website editing.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What's the difference between the free report and the Fix Guide? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">The free report shows you <em>what's wrong</em> with your site and gives you a priority action plan. The Fix Guide ($49) shows you <em>exactly how to fix each issue</em> — with numbered step-by-step instructions, code snippets, and time estimates for each fix. Think of the free report as the diagnosis, and the Fix Guide as the treatment plan.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is Finn a real person? <span class="faq-chevron">›</span></button>
+        <div class="faq-a">Finn is an AI analyst — not a person. The audits are generated using Google's PageSpeed Insights API and OpenAI's GPT-4o model, which allows Finn to analyse your site the same way an experienced consultant would — just instantly, and at a fraction of the cost.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
 <footer>
-  <p>© 2026 FinnWorks AI · <a href="mailto:finn@finnworks.ai" style="color: #475569;">finn@finnworks.ai</a></p>
+  <div class="footer-inner">
+    <div class="footer-logo">FINNWORKS<span> AI</span></div>
+    <div class="footer-links">
+      <a href="mailto:finn@finnworks.ai">finn@finnworks.ai</a>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="#audit-form">Get free audit</a>
+    </div>
+    <p class="footer-copy">© 2026 FinnWorks AI</p>
+    <p class="footer-secure">🔒 HTTPS only · We never sell or share your data · Unsubscribe any time</p>
+  </div>
 </footer>
 
 <script>
-  const form = document.getElementById('auditForm');
-  const btn = document.getElementById('submitBtn');
-  const status = document.getElementById('statusMsg');
+  /* ── Audit form ── */
+  const auditForm = document.getElementById('auditForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
 
-  form.addEventListener('submit', async (e) => {
+  auditForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Running your audit…';
-    status.className = 'status';
-    status.textContent = '';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Analysing your site…';
+    statusMsg.className = 'status';
+    statusMsg.textContent = '';
 
     let url = document.getElementById('urlInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
-
-    // Prepend https:// if missing
     if (!url.startsWith('http')) url = 'https://' + url;
 
     try {
-      const res = await fetch('/audit', {
+      const res  = await fetch('/audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, email }),
       });
-
       const data = await res.json();
-
       if (res.ok) {
-        status.className = 'status success';
-        status.textContent = '✅ Audit started! Check your inbox in the next few minutes.';
-        form.reset();
+        statusMsg.className = 'status success';
+        statusMsg.innerHTML = '✅ <strong>Audit started!</strong> Check your inbox in the next few minutes.';
+        auditForm.reset();
       } else {
         throw new Error(data.error || 'Something went wrong. Please try again.');
       }
     } catch (err) {
-      status.className = 'status error';
-      status.textContent = '⚠️ ' + err.message;
+      statusMsg.className = 'status error';
+      statusMsg.textContent = '⚠️ ' + err.message;
     } finally {
-      btn.disabled = false;
-      btn.textContent = 'Get my free audit →';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Analyse my website — it\'s free →';
     }
   });
-</script>
 
+  /* ── Upgrade form ── */
+  document.getElementById('upgradeForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let url = document.getElementById('upgradeUrl').value.trim();
+    const email = document.getElementById('upgradeEmail').value.trim();
+    if (!url.startsWith('http')) url = 'https://' + url;
+    window.location.href = '/upgrade?url=' + encodeURIComponent(url) + '&email=' + encodeURIComponent(email);
+  });
+
+  /* ── FAQ accordion ── */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item   = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
 </body>
 </html>

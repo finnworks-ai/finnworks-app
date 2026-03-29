@@ -40,7 +40,7 @@ async function runFixGuidePipeline({ websiteUrl, customerEmail }) {
   console.log(`[fix-pipeline] PDF done. ${(pdfBuffer.length / 1024).toFixed(1)} KB`);
 
   // Step 6: Send email
-  const emailResult = await sendFixGuideEmail({ to: customerEmail, websiteUrl, pdfBuffer });
+  const emailResult = await sendFixGuideEmail({ to: customerEmail, websiteUrl, pdfBuffer, fixes: fixGuide.fixes });
   console.log(`[fix-pipeline] Email sent. ID: ${emailResult.messageId}`);
 
   return {
