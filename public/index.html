@@ -130,29 +130,51 @@
     .finn-box {
       background: #eef2ff; border: 1px solid #c7d2fe;
       border-radius: 16px; padding: 24px;
-      display: flex; align-items: flex-start; gap: 16px;
+      display: flex; align-items: center; gap: 20px;
       max-width: 640px; margin: 0 auto;
     }
     .finn-avatar {
-      width: 48px; height: 48px; background: var(--accent); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; flex-shrink: 0;
+      position: relative; width: 140px; flex-shrink: 0;
+    }
+    .finn-avatar img { width: 140px; height: auto; display: block; }
+    @keyframes finn-blink {
+      0%, 78%, 100% { opacity: 1; box-shadow: 0 0 10px 5px rgba(34,197,94,0.6); }
+      85%            { opacity: 0.05; box-shadow: none; }
+      92%            { opacity: 1; box-shadow: 0 0 10px 5px rgba(34,197,94,0.6); }
+    }
+    .finn-led {
+      position: absolute;
+      width: 3px; height: 3px;
+      background: radial-gradient(circle at 35% 32%, #86efac, #16a34a);
+      border-radius: 50%;
+      top: 41.25px; left: calc(50% - 1.25px); transform: translateX(-50%);
+      animation: finn-blink 3.4s ease-in-out infinite;
     }
     .finn-box p { font-size: 14px; color: #3730a3; line-height: 1.65; }
     .finn-box strong { color: #312e81; }
 
     /* ── Audit categories ── */
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .cat-grid { grid-template-columns: 1fr; } }
     .cat-card {
       background: var(--white); border: 1px solid var(--border);
       border-radius: 14px; padding: 24px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+      display: flex; flex-direction: column;
     }
-    .cat-icon { font-size: 26px; margin-bottom: 12px; }
-    .cat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .cat-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .cat-icon {
+      width: 40px; height: 40px; background: #eef2ff; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 14px; flex-shrink: 0;
+    }
+    .cat-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .cat-card > p { font-size: 13px; color: var(--muted); line-height: 1.6; }
     .cat-example {
-      margin-top: 12px; background: var(--bg); border: 1px solid var(--border);
+      margin-top: auto; padding-top: 14px;
+    }
+    .cat-example-inner {
+      background: var(--bg); border: 1px solid var(--border);
       border-radius: 8px; padding: 10px 12px;
       font-size: 12px; color: var(--muted); font-style: italic; line-height: 1.5;
     }
@@ -355,7 +377,7 @@
 
 <!-- ── Hero ── -->
 <section class="hero">
-  <div class="powered-badge">⚡ Powered by Google PageSpeed + OpenAI GPT-4o</div>
+  <div class="powered-badge">⚡ Powered by Google PageSpeed + FinnWorks AI</div>
 
   <h1>Is your website <span>costing you customers?</span></h1>
   <p class="sub">Most small business websites have 3–5 issues silently driving visitors away. Finn, our AI analyst, finds them — and sends you a full report in minutes. Free.</p>
@@ -378,9 +400,9 @@
 <!-- ── Trust strip ── -->
 <div class="trust-strip">
   <div class="trust-strip-inner">
-    <div class="trust-item"><span class="trust-dot"></span>Google PageSpeed API</div>
+    <div class="trust-item"><span class="trust-dot"></span>Google PageSpeed data</div>
     <span class="trust-sep">·</span>
-    <div class="trust-item"><span class="trust-dot"></span>OpenAI GPT-4o analysis</div>
+    <div class="trust-item"><span class="trust-dot"></span>AI-powered analysis</div>
     <span class="trust-sep">·</span>
     <div class="trust-item"><span class="trust-dot"></span>9 categories, 70+ data points</div>
     <span class="trust-sep">·</span>
@@ -395,7 +417,10 @@
     <h2 class="section-title">Meet Finn</h2>
     <p class="section-sub" style="margin: 0 auto 28px;">Not a person. Better than a template.</p>
     <div class="finn-box">
-      <div class="finn-avatar">🤖</div>
+      <div class="finn-avatar">
+        <img src="/Finn.png" alt="Finn AI avatar">
+        <span class="finn-led"></span>
+      </div>
       <p><strong>Finn is an AI analyst</strong> trained to review small business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
     </div>
   </div>
@@ -413,55 +438,55 @@
         <div class="cat-icon">⚡</div>
         <h3>Performance &amp; Speed</h3>
         <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
-        <div class="cat-example">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div>
+        <div class="cat-example"><div class="cat-example-inner">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">🔍</div>
         <h3>SEO Foundations</h3>
         <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
-        <div class="cat-example">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div>
+        <div class="cat-example"><div class="cat-example-inner">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">📱</div>
         <h3>Mobile Experience</h3>
         <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
-        <div class="cat-example">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div>
+        <div class="cat-example"><div class="cat-example-inner">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">✍️</div>
         <h3>Content &amp; Messaging</h3>
         <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
-        <div class="cat-example">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div>
+        <div class="cat-example"><div class="cat-example-inner">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">🛡️</div>
         <h3>Trust &amp; Credibility</h3>
         <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
-        <div class="cat-example">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div>
+        <div class="cat-example"><div class="cat-example-inner">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">🤖</div>
         <h3>GEO / AEO</h3>
         <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
-        <div class="cat-example">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div>
+        <div class="cat-example"><div class="cat-example-inner">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">📍</div>
         <h3>Local SEO</h3>
         <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
-        <div class="cat-example">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div>
+        <div class="cat-example"><div class="cat-example-inner">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">🎯</div>
         <h3>Conversion &amp; UX</h3>
         <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
-        <div class="cat-example">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div>
+        <div class="cat-example"><div class="cat-example-inner">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div></div>
       </div>
       <div class="cat-card">
         <div class="cat-icon">♿</div>
         <h3>Accessibility</h3>
         <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
-        <div class="cat-example">"Under the NZ Human Rights Act, public-facing websites should be reasonably accessible. Most aren't."</div>
+        <div class="cat-example"><div class="cat-example-inner">"Under the NZ Human Rights Act, public-facing websites should be reasonably accessible. Most aren't."</div></div>
       </div>
     </div>
   </div>
@@ -649,7 +674,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">Is Finn a real person? <span class="faq-chevron">›</span></button>
-        <div class="faq-a">Finn is an AI analyst — not a person. The audits are generated using Google's PageSpeed Insights API and OpenAI's GPT-4o model, which allows Finn to analyse your site the same way an experienced consultant would — just instantly, and at a fraction of the cost.</div>
+        <div class="faq-a">Finn is an AI analyst — not a person. Finn uses real website performance data and AI analysis to review your site the same way an experienced consultant would — checking 9 categories across 70+ data points, instantly, and at a fraction of the cost.</div>
       </div>
     </div>
   </div>
@@ -661,7 +686,7 @@
     <div class="footer-logo">FINNWORKS<span> AI</span></div>
     <div class="footer-links">
       <a href="mailto:finn@finnworks.ai">finn@finnworks.ai</a>
-      <a href="/privacy">Privacy Policy</a>
+      <a href="/privacy.html">Privacy Policy</a>
       <a href="#audit-form">Get free audit</a>
     </div>
     <p class="footer-copy">© 2026 FinnWorks AI</p>

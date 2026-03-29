@@ -1,0 +1,151 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Finn AI avatar">
+  <defs>
+    <radialGradient id="finn-bg" cx="42%" cy="32%" r="72%">
+      <stop offset="0%" stop-color="#5d58cc"/>
+      <stop offset="55%" stop-color="#302ca8"/>
+      <stop offset="100%" stop-color="#18167c"/>
+    </radialGradient>
+    <radialGradient id="finn-head" cx="50%" cy="16%" r="84%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cdd4e8"/>
+    </radialGradient>
+    <radialGradient id="finn-iris" cx="36%" cy="28%" r="70%">
+      <stop offset="0%" stop-color="#9498f8"/>
+      <stop offset="40%" stop-color="#5c58d6"/>
+      <stop offset="100%" stop-color="#17157c"/>
+    </radialGradient>
+    <radialGradient id="finn-led" cx="32%" cy="30%" r="68%">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="100%" stop-color="#15803d"/>
+    </radialGradient>
+    <radialGradient id="finn-orb" cx="34%" cy="26%" r="68%">
+      <stop offset="0%" stop-color="#e8ecff"/>
+      <stop offset="100%" stop-color="#8890cc"/>
+    </radialGradient>
+    <linearGradient id="finn-ear" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d6daea"/>
+      <stop offset="100%" stop-color="#a8b0cc"/>
+    </linearGradient>
+    <style>
+      @keyframes finn-blink {
+        0%, 78%, 100% { opacity: 1; }
+        85%            { opacity: 0.06; }
+        92%            { opacity: 1; }
+      }
+      .finn-led { animation: finn-blink 3.4s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="url(#finn-bg)"/>
+
+  <!-- Antenna stem -->
+  <rect x="99" y="48" width="2" height="16" rx="1" fill="#b8c0d8"/>
+  <!-- Y-arms -->
+  <line x1="100" y1="54" x2="89"  y2="43" stroke="#b8c0d8" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="100" y1="54" x2="111" y2="43" stroke="#b8c0d8" stroke-width="2.4" stroke-linecap="round"/>
+  <!-- Orb ambient glow -->
+  <circle cx="100" cy="35" r="12" fill="#818cf8" opacity="0.2"/>
+  <!-- Orb body -->
+  <circle cx="100" cy="35" r="8" fill="url(#finn-orb)"/>
+  <!-- Hex facet -->
+  <polygon points="100,27.5 105.8,30.5 105.8,37 100,40 94.2,37 94.2,30.5"
+           fill="none" stroke="#8890cc" stroke-width="0.9" opacity="0.65"/>
+  <!-- Orb highlights -->
+  <circle cx="100" cy="35" r="3"   fill="white" opacity="0.9"/>
+  <circle cx="98"  cy="33" r="1.4" fill="white" opacity="0.55"/>
+
+  <!-- Head shadow -->
+  <path d="M 56,64 L 144,64 L 164,84 L 164,154 L 144,174 L 56,174 L 36,154 L 36,84 Z"
+        fill="#0c0a3a" opacity="0.14" transform="translate(2,3)"/>
+  <!-- Head body -->
+  <path d="M 56,64 L 144,64 L 164,84 L 164,154 L 144,174 L 56,174 L 36,154 L 36,84 Z"
+        fill="url(#finn-head)"/>
+  <!-- Chamfer seam lines -->
+  <line x1="38"  y1="93"  x2="57"  y2="66"  stroke="#b0b8d8" stroke-width="1" opacity="0.5"/>
+  <line x1="143" y1="64"  x2="163" y2="83"  stroke="#b0b8d8" stroke-width="1" opacity="0.5"/>
+  <line x1="37"  y1="145" x2="56"  y2="174" stroke="#b0b8d8" stroke-width="1" opacity="0.5"/>
+  <line x1="144" y1="174" x2="164" y2="155" stroke="#b0b8d8" stroke-width="1" opacity="0.5"/>
+  <!-- Inner face panel -->
+  <path d="M 62,71 L 138,71 L 156,89 L 156,149 L 138,167 L 62,167 L 44,149 L 44,89 Z"
+        fill="#ebeef7"/>
+
+  <!-- Left ear -->
+  <rect x="19" y="101" width="18" height="34" rx="9" fill="url(#finn-ear)"/>
+  <circle cx="28" cy="110" r="2.8" fill="#8890c0" opacity="0.75"/>
+  <circle cx="28" cy="118" r="2.8" fill="#8890c0" opacity="0.75"/>
+  <circle cx="28" cy="126" r="2.8" fill="#8890c0" opacity="0.75"/>
+  <!-- Right ear -->
+  <rect x="163" y="101" width="18" height="34" rx="9" fill="url(#finn-ear)"/>
+  <circle cx="172" cy="110" r="2.8" fill="#8890c0" opacity="0.75"/>
+  <circle cx="172" cy="118" r="2.8" fill="#8890c0" opacity="0.75"/>
+  <circle cx="172" cy="126" r="2.8" fill="#8890c0" opacity="0.75"/>
+
+  <!-- Green LED (blinking) -->
+  <circle class="finn-led" cx="100" cy="83" r="11"  fill="#22c55e" opacity="0.25"/>
+  <circle class="finn-led" cx="100" cy="83" r="7.5" fill="url(#finn-led)"/>
+  <circle class="finn-led" cx="98.2" cy="81.2" r="3" fill="#bbf7d0" opacity="0.85"/>
+
+  <!-- Left eye -->
+  <circle cx="73" cy="116" r="22" fill="white"/>
+  <circle cx="73" cy="116" r="20" fill="#d4d8f0"/>
+  <circle cx="73" cy="116" r="18" fill="#22208a"/>
+  <circle cx="73" cy="116" r="16" fill="url(#finn-iris)"/>
+  <circle cx="73" cy="116" r="13.5" fill="none" stroke="#818cf8" stroke-width="1"   opacity="0.5"/>
+  <circle cx="73" cy="116" r="10"   fill="none" stroke="#6366f1" stroke-width="0.7" opacity="0.38"/>
+  <line x1="73" y1="100.5" x2="73" y2="103.5" stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="73" y1="128.5" x2="73" y2="131.5" stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="57" y1="116"   x2="60" y2="116"   stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="86" y1="116"   x2="89" y2="116"   stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <circle cx="73" cy="116" r="6.5" fill="#04020e"/>
+  <circle cx="67" cy="110" r="4.5" fill="white" opacity="0.82"/>
+  <circle cx="78" cy="121" r="1.8" fill="white" opacity="0.38"/>
+
+  <!-- Right eye -->
+  <circle cx="127" cy="116" r="22" fill="white"/>
+  <circle cx="127" cy="116" r="20" fill="#d4d8f0"/>
+  <circle cx="127" cy="116" r="18" fill="#22208a"/>
+  <circle cx="127" cy="116" r="16" fill="url(#finn-iris)"/>
+  <circle cx="127" cy="116" r="13.5" fill="none" stroke="#818cf8" stroke-width="1"   opacity="0.5"/>
+  <circle cx="127" cy="116" r="10"   fill="none" stroke="#6366f1" stroke-width="0.7" opacity="0.38"/>
+  <line x1="127" y1="100.5" x2="127" y2="103.5" stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="127" y1="128.5" x2="127" y2="131.5" stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="111" y1="116"   x2="114" y2="116"   stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <line x1="140" y1="116"   x2="143" y2="116"   stroke="#9098f8" stroke-width="1.3" opacity="0.55"/>
+  <circle cx="127" cy="116" r="6.5" fill="#04020e"/>
+  <circle cx="121" cy="110" r="4.5" fill="white" opacity="0.82"/>
+  <circle cx="132" cy="121" r="1.8" fill="white" opacity="0.38"/>
+
+  <!-- Left cheek: brain outline -->
+  <path d="M49,151 Q47,148 49.5,146.5 Q52,145 54.5,147 Q57,145 59.5,147 Q62,148.5 60,151 Q58.5,154 55.5,153 Q52.5,154.5 49,151Z"
+        fill="none" stroke="#9098c0" stroke-width="1.3" opacity="0.52"/>
+  <line x1="55" y1="147"    x2="55"  y2="153"    stroke="#9098c0" stroke-width="1"   opacity="0.38"/>
+  <line x1="49" y1="149.5"  x2="61"  y2="149.5"  stroke="#9098c0" stroke-width="0.8" opacity="0.28"/>
+
+  <!-- Right cheek: circuit pattern -->
+  <line x1="140" y1="145" x2="152" y2="145" stroke="#9098c0" stroke-width="1.3" opacity="0.52"/>
+  <line x1="140" y1="150" x2="152" y2="150" stroke="#9098c0" stroke-width="1.3" opacity="0.52"/>
+  <line x1="140" y1="155" x2="152" y2="155" stroke="#9098c0" stroke-width="1.3" opacity="0.52"/>
+  <line x1="146" y1="145" x2="146" y2="155" stroke="#9098c0" stroke-width="1.3" opacity="0.52"/>
+  <circle cx="140" cy="145" r="2" fill="#9098c0" opacity="0.52"/>
+  <circle cx="152" cy="145" r="2" fill="#9098c0" opacity="0.52"/>
+  <circle cx="140" cy="155" r="2" fill="#9098c0" opacity="0.52"/>
+  <circle cx="152" cy="155" r="2" fill="#9098c0" opacity="0.52"/>
+
+  <!-- Jaw pads -->
+  <ellipse cx="68"  cy="158" rx="13" ry="8" fill="#b0b8d0"/>
+  <ellipse cx="132" cy="158" rx="13" ry="8" fill="#b0b8d0"/>
+
+  <!-- Waveform bars: arch shape (center tallest), all bottoms at y=164 -->
+  <rect x="72"   y="157.5" width="3.8" height="6.5"  rx="1.9" fill="#7578e8" opacity="0.82"/>
+  <rect x="77.2" y="154.5" width="3.8" height="9.5"  rx="1.9" fill="#6366f1" opacity="0.9"/>
+  <rect x="82.4" y="156.5" width="3.8" height="7.5"  rx="1.9" fill="#7578e8" opacity="0.85"/>
+  <rect x="87.6" y="153"   width="3.8" height="11"   rx="1.9" fill="#4f46e5" opacity="0.95"/>
+  <rect x="92.8" y="154.5" width="3.8" height="9.5"  rx="1.9" fill="#6366f1" opacity="0.9"/>
+  <rect x="98"   y="151.5" width="3.8" height="12.5" rx="1.9" fill="#4f46e5"/>
+  <rect x="103.2" y="154.5" width="3.8" height="9.5" rx="1.9" fill="#6366f1" opacity="0.9"/>
+  <rect x="108.4" y="153"   width="3.8" height="11"  rx="1.9" fill="#4f46e5" opacity="0.95"/>
+  <rect x="113.6" y="156.5" width="3.8" height="7.5" rx="1.9" fill="#7578e8" opacity="0.85"/>
+  <rect x="118.8" y="154.5" width="3.8" height="9.5" rx="1.9" fill="#6366f1" opacity="0.9"/>
+  <rect x="124"   y="157.5" width="3.8" height="6.5" rx="1.9" fill="#7578e8" opacity="0.82"/>
+</svg>
