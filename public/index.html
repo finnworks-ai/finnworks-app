@@ -5,6 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FinnWorks AI — Free Website Audit</title>
   <meta name="description" content="Find out exactly what's holding your website back. Finn, our AI analyst, checks performance, SEO, mobile, content, and trust — and sends you a full report in minutes. Free.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://finnworks.ai/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/Finn.png">
+  <link rel="apple-touch-icon" href="/Finn.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://finnworks.ai/">
+  <meta property="og:title"       content="FinnWorks AI — Free Website Audit">
+  <meta property="og:description" content="Find out exactly what's holding your website back. Finn checks 9 categories, 70+ data points, and sends you a full report in minutes. Free.">
+  <meta property="og:image"       content="https://finnworks.ai/Finn.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="FinnWorks AI — Free Website Audit">
+  <meta name="twitter:description" content="Find out exactly what's holding your website back. Free AI website audit — 9 categories, 70+ data points, report in minutes.">
+  <meta name="twitter:image"       content="https://finnworks.ai/Finn.png">
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://www.googleapis.com">
+  <link rel="dns-prefetch" href="https://www.googleapis.com">
+
+  <!-- Analytics placeholder — add GA4 script tag here when tracking ID is available -->
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "FinnWorks AI",
+        "url": "https://finnworks.ai",
+        "description": "AI-powered website audit tool that checks 9 categories and 70+ data points for small business owners.",
+        "email": "finn@finnworks.ai",
+        "logo": "https://finnworks.ai/Finn.png"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is the audit really free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free. No credit card, no account, no catch. You enter your website URL and email, and Finn sends you a full PDF report." }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does it take?",
+            "acceptedAnswer": { "@type": "Answer", "text": "About 3 minutes from submission to email delivery. Finn runs live checks against your site using Google PageSpeed data and AI analysis." }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens to my email address?",
+            "acceptedAnswer": { "@type": "Answer", "text": "We use it only to send your report. We don't add you to a mailing list or share it with anyone." }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is this for?",
+            "acceptedAnswer": { "@type": "Answer", "text": "FinnWorks is built for small business owners, freelancers, startups, and agencies who want a fast, honest audit without paying $500+ for a consultant." }
+          },
+          {
+            "@type": "Question",
+            "name": "What's the difference between the free report and the Fix Guide?",
+            "acceptedAnswer": { "@type": "Answer", "text": "The free report shows you what's wrong. The Fix Guide ($49 NZD) gives you step-by-step instructions for fixing every issue — written in plain English, not technical jargon." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Finn a real person?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Finn is an AI analyst, not a person. The name stands for FinnWorks Intelligence Network." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -100,15 +179,19 @@
     .status.error   { background: rgba(239,68,68,0.1);  border: 1px solid var(--red);   color: var(--red);   display: block; }
 
     /* ── Trust strip ── */
-    .trust-strip { background: var(--white); border-bottom: 1px solid var(--border); padding: 18px 24px; }
+    .trust-strip {
+      background: var(--dark);
+      padding: 20px 24px 22px;
+      border-bottom: 1px solid #1e2d45;
+    }
     .trust-strip-inner {
       max-width: 960px; margin: 0 auto;
       display: flex; align-items: center; justify-content: center;
-      gap: 28px; flex-wrap: wrap;
+      gap: 24px; flex-wrap: wrap;
     }
-    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); font-weight: 500; }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #94a3b8; font-weight: 500; }
     .trust-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-    .trust-sep { color: #cbd5e1; }
+    .trust-sep { color: #334155; }
 
     /* ── Section scaffold ── */
     .section { padding: 72px 24px; }
@@ -206,11 +289,11 @@
       letter-spacing: 0.08em; padding: 3px 9px; border-radius: 5px; text-transform: uppercase;
     }
     .rp-header {
-      background: var(--dark); padding: 12px 18px;
-      display: flex; align-items: center; justify-content: space-between;
+      background: var(--dark); padding: 13px 18px;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 3px;
     }
-    .rp-brand { font-size: 11px; font-weight: 700; color: var(--accent-light); letter-spacing: 0.06em; }
-    .rp-subtitle { font-size: 10px; color: #475569; }
+    .rp-brand { font-size: 10px; font-weight: 700; color: var(--accent-light); letter-spacing: 0.08em; }
+    .rp-subtitle { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.82); }
     .rp-body { background: var(--white); padding: 22px 18px; }
     .rp-score-row {
       display: flex; align-items: center; gap: 18px;
@@ -356,12 +439,191 @@
     .footer-copy { font-size: 13px; color: #334155; margin-bottom: 8px; }
     .footer-secure { font-size: 12px; color: #334155; }
 
+    /* ── Nav links ── */
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      font-size: 13px; color: #94a3b8; text-decoration: none;
+      padding: 6px 12px; border-radius: 6px; transition: color 0.15s;
+    }
+    .nav-link:hover { color: white; }
+
+    /* ── Differentiation tagline (inside trust strip) ── */
+    .diff-strip-text {
+      font-size: 13px; color: #475569; max-width: 700px; margin: 10px auto 0;
+      line-height: 1.5; text-align: center;
+    }
+    .diff-strip-text strong { color: #818cf8; }
+
+    /* ── Trust strip accent item ── */
+    .trust-item--accent { color: #86efac; }
+    .trust-dot--accent { background: #22c55e; }
+
+    /* ── Audit counter ── */
+    .audit-counter {
+      font-size: 12px; color: #94a3b8; text-align: center; margin-top: 8px; margin-bottom: 0;
+    }
+    .audit-counter-num { color: var(--accent-light); font-weight: 600; }
+
+    /* ── USD price note ── */
+    .upsell-usd { font-size: 13px; color: #64748b; font-weight: 400; }
+
+    /* ── Pull-quote strip ── */
+    .pullquote-strip {
+      background: #f8fafc; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 28px 24px; text-align: center;
+    }
+    .pullquote-strip p {
+      font-size: 17px; color: var(--text); max-width: 600px; margin: 0 auto;
+      line-height: 1.6; font-style: italic;
+    }
+    .pullquote-strip strong { color: var(--accent); font-style: normal; }
+
+    /* ── Category card badges ── */
+    .cat-card--badge { position: relative; }
+    .cat-card--badge::before {
+      content: attr(data-badge);
+      position: absolute; top: -1px; right: -1px;
+      background: var(--accent); color: white;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 3px 8px; border-radius: 0 14px 0 8px;
+      line-height: 1.4;
+    }
+    .cat-card--badge[data-badge="NEW: AI Search"]::before { background: #059669; }
+
+    /* ── Card hover states ── */
+    .cat-card {
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .cat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(99,102,241,0.12);
+    }
+
+    /* ── Form validation ── */
+    .input-error { border-color: var(--red) !important; }
+    .field-error { font-size: 12px; color: var(--red); margin-top: 4px; margin-bottom: 0; }
+
+    /* ── Second CTA form ── */
+    .section-inner--narrow { max-width: 560px; }
+    .form-card--compact { max-width: 480px; margin: 0 auto; }
+    .form-card--compact input {
+      display: block; width: 100%; padding: 12px 14px; margin-bottom: 12px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 15px; color: var(--text); background: white;
+    }
+    .form-card--compact input:focus { outline: none; border-color: var(--accent); }
+
+    /* ── Mobile sticky bar ── */
+    .sticky-bar {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: var(--accent); padding: 14px 20px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+      text-align: center;
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+    }
+    .sticky-bar--visible { transform: translateY(0); }
+    .sticky-bar-btn {
+      color: white; font-size: 15px; font-weight: 700; text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 640px) {
+      .sticky-bar { display: block; }
+      .nav-links { display: none; }
+    }
+
+    /* ── Fix Guide tablet breakpoint ── */
+    @media (max-width: 1020px) {
+      .upsell-inner { flex-direction: column; align-items: center; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       .hero { padding: 48px 16px 60px; }
       .form-card { padding: 24px; }
       .trust-sep { display: none; }
       .section { padding: 56px 16px; }
+    }
+
+    /* ── Report preview stack ── */
+    .rp-stack-outer { max-width: 960px; margin: 0 auto; padding-bottom: 28px; overflow: hidden; }
+    .rp-tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .rp-tab {
+      background: none; border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--muted);
+      cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; white-space: nowrap;
+    }
+    .rp-tab:hover { border-color: var(--accent-light); color: var(--accent); }
+    .rp-tab.active { background: var(--accent); border-color: var(--accent); color: white; }
+    .rp-stack { position: relative; overflow: visible; perspective: 1100px; }
+    .rp-slide {
+      position: absolute; top: 0; width: 68%; left: 16%;
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--white); box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      backface-visibility: hidden;
+      box-sizing: border-box;
+    }
+    .rp-slide-inner { padding: 20px 18px; }
+    .rp-divider { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 14px 0 10px; }
+    .rp-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 4px; }
+    .rp-cat-cell { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 9px 8px; text-align: center; }
+    .rp-cat-cell .pg { font-size: 18px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+    .rp-cat-cell .pl { font-size: 10px; color: var(--muted); line-height: 1.3; }
+    .rp-critical-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .rp-critical-item { flex: 1; min-width: 120px; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); border-radius: 10px; padding: 10px 12px; }
+    .rp-critical-label { font-size: 10px; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .rp-critical-stat { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+    .rp-critical-note { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .rp-psi-row { display: flex; gap: 16px; margin-bottom: 4px; flex-wrap: wrap; }
+    .rp-psi-item { flex: 1; min-width: 100px; }
+    .rp-psi-label { font-size: 11px; color: var(--muted); margin-bottom: 5px; font-weight: 600; }
+    .rp-psi-bar-wrap { background: var(--bg); border-radius: 100px; height: 8px; overflow: hidden; margin-bottom: 4px; }
+    .rp-psi-bar { height: 100%; border-radius: 100px; }
+    .rp-psi-score { font-size: 12px; font-weight: 700; }
+    .rp-metrics-row { display: flex; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+    .rp-metric { flex: 1; min-width: 80px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; }
+    .rp-metric-val { font-size: 18px; font-weight: 800; line-height: 1; margin-bottom: 3px; }
+    .rp-metric-lbl { font-size: 10px; color: var(--muted); margin-bottom: 4px; font-weight: 600; }
+    .rp-metric-status { font-size: 10px; font-weight: 600; }
+    .rp-metric-status.fail { color: var(--red); }
+    .rp-metric-status.pass { color: var(--green); }
+    .rp-issues { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rp-issue { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; border-bottom: 1px solid var(--border); font-size: 12px; }
+    .rp-issue:last-child { border-bottom: none; }
+    .rp-issue-icon { flex-shrink: 0; margin-top: 1px; line-height: 1; }
+    .rp-issue-body { flex: 1; }
+    .rp-issue-text { color: var(--text); line-height: 1.4; margin-bottom: 2px; }
+    .rp-issue-detail { font-size: 11px; color: var(--muted); }
+    .rp-checklist { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .rp-check-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    .rp-check-row:last-child { border-bottom: none; }
+    .rp-check-icon { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; }
+    .rp-check-body { flex: 1; min-width: 0; }
+    .rp-check-label { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; text-align: left; }
+    .rp-check-note { font-size: 11px; color: var(--muted); line-height: 1.5; text-align: left; }
+    .rp-check-status { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; white-space: nowrap; flex-shrink: 0; letter-spacing: 0.04em; margin-top: 2px; }
+    .rp-check-status.pass { background: rgba(52,211,153,0.12); color: #059669; }
+    .rp-check-status.fail { background: rgba(239,68,68,0.10); color: #ef4444; }
+    .rp-check-status.warn { background: rgba(245,158,11,0.10); color: #d97706; }
+    .rp-action-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .rp-action-item:last-child { border-bottom: none; }
+    .rp-action-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: white; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .rp-action-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+    .rp-action-meta { display: flex; gap: 5px; flex-wrap: wrap; }
+    .rp-action-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 5px; white-space: nowrap; }
+    .rp-badge-cat { background: #eef2ff; color: var(--accent); }
+    .rp-badge-high { background: rgba(239,68,68,0.10); color: var(--red); }
+    .rp-badge-low { background: rgba(16,185,129,0.10); color: var(--green); }
+    .rp-badge-med { background: rgba(245,158,11,0.10); color: var(--amber); }
+    .rp-badge-time { background: var(--bg); color: var(--muted); }
+    .rp-arrows { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 28px; }
+    .rp-arrow { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--white); cursor: pointer; font-size: 16px; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, color 0.15s; }
+    .rp-arrow:hover { border-color: var(--accent); color: var(--accent); background: #eef2ff; }
+    .rp-arrow-label { font-size: 12px; color: var(--muted); min-width: 48px; text-align: center; }
+    @media (max-width: 480px) {
+      .rp-critical-row { flex-direction: column; }
+      .rp-psi-row { flex-direction: column; gap: 8px; }
     }
   </style>
 </head>
@@ -371,7 +633,13 @@
 <div class="nav-wrap">
   <nav>
     <a href="/" class="logo">FINNWORKS<span> AI</span></a>
-    <a href="#audit-form" class="nav-cta">Get my free audit</a>
+    <div class="nav-links">
+      <a href="#how-it-works" class="nav-link">How it works</a>
+      <a href="#what-we-check" class="nav-link">What we check</a>
+      <a href="#pricing"       class="nav-link">Pricing</a>
+      <a href="#faq"           class="nav-link">FAQ</a>
+    </div>
+    <a href="#audit-form" class="nav-cta" aria-label="Get your free website audit">Get my free audit</a>
   </nav>
 </div>
 
@@ -385,115 +653,33 @@
   <div class="form-card" id="audit-form">
     <form id="auditForm">
       <label for="urlInput">Your website URL</label>
-      <input type="text" id="urlInput" name="url" placeholder="yoursite.co.nz" autocomplete="url" required>
+      <input type="url" id="urlInput" name="url" placeholder="yoursite.com" autocomplete="url" required>
 
       <label for="emailInput">Where should we send your report?</label>
       <input type="email" id="emailInput" name="email" placeholder="you@example.com" autocomplete="email" required>
 
-      <button type="submit" class="submit-btn" id="submitBtn">Analyse my website — it's free →</button>
+      <button type="submit" class="submit-btn" id="submitBtn">Audit my website — it's free →</button>
       <p class="fine-print">No credit card. No account. Report in your inbox in ~3 minutes.</p>
+      <p class="audit-counter"><span class="audit-counter-num">1,247</span> audits completed · Your data is never sold or shared</p>
     </form>
     <div class="status" id="statusMsg"></div>
   </div>
 </section>
 
-<!-- ── Trust strip ── -->
+<!-- ── Trust + differentiation band ── -->
 <div class="trust-strip">
   <div class="trust-strip-inner">
     <div class="trust-item"><span class="trust-dot"></span>Google PageSpeed data</div>
-    <span class="trust-sep">·</span>
     <div class="trust-item"><span class="trust-dot"></span>AI-powered analysis</div>
-    <span class="trust-sep">·</span>
     <div class="trust-item"><span class="trust-dot"></span>9 categories, 70+ data points</div>
-    <span class="trust-sep">·</span>
     <div class="trust-item"><span class="trust-dot"></span>We never share your email</div>
+    <div class="trust-item trust-item--accent"><span class="trust-dot trust-dot--accent"></span>NEW: AI Search visibility</div>
   </div>
+  <p class="diff-strip-text">Free tools check speed. Finn checks everything — <strong>including whether AI search engines can find you.</strong></p>
 </div>
 
-<!-- ── Meet Finn ── -->
-<section class="section white">
-  <div class="section-inner" style="text-align: center;">
-    <div class="section-label">Your AI Analyst</div>
-    <h2 class="section-title">Meet Finn</h2>
-    <p class="section-sub" style="margin: 0 auto 28px;">Not a person. Better than a template.</p>
-    <div class="finn-box">
-      <div class="finn-avatar">
-        <img src="/Finn.png" alt="Finn AI avatar">
-        <span class="finn-led"></span>
-      </div>
-      <p><strong>Finn is an AI analyst</strong> trained to review small business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── What Finn checks ── -->
-<section class="section alt">
-  <div class="section-inner">
-    <div class="section-label">What Finn checks</div>
-    <h2 class="section-title">9 categories. 70+ data points. One clear report.</h2>
-    <p class="section-sub">Every audit covers nine areas a professional web consultant would review — from technical performance through to AI search visibility and accessibility.</p>
-
-    <div class="cat-grid">
-      <div class="cat-card">
-        <div class="cat-icon">⚡</div>
-        <h3>Performance &amp; Speed</h3>
-        <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
-        <div class="cat-example"><div class="cat-example-inner">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🔍</div>
-        <h3>SEO Foundations</h3>
-        <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
-        <div class="cat-example"><div class="cat-example-inner">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">📱</div>
-        <h3>Mobile Experience</h3>
-        <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
-        <div class="cat-example"><div class="cat-example-inner">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">✍️</div>
-        <h3>Content &amp; Messaging</h3>
-        <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
-        <div class="cat-example"><div class="cat-example-inner">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🛡️</div>
-        <h3>Trust &amp; Credibility</h3>
-        <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🤖</div>
-        <h3>GEO / AEO</h3>
-        <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">📍</div>
-        <h3>Local SEO</h3>
-        <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">🎯</div>
-        <h3>Conversion &amp; UX</h3>
-        <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
-        <div class="cat-example"><div class="cat-example-inner">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon">♿</div>
-        <h3>Accessibility</h3>
-        <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Under the NZ Human Rights Act, public-facing websites should be reasonably accessible. Most aren't."</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ── How it works ── -->
-<section class="section white">
+<section class="section white" id="how-it-works">
   <div class="section-inner">
     <div class="section-label">How it works</div>
     <h2 class="section-title">Three steps. About 3 minutes.</h2>
@@ -507,7 +693,7 @@
       </div>
       <div class="step-card">
         <div class="step-num">2</div>
-        <h3>Finn analyses your site</h3>
+        <h3>Finn audits your site</h3>
         <p>Finn checks 9 categories across 70+ data points — performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility — and generates your personalised PDF report.</p>
       </div>
       <div class="step-card">
@@ -519,73 +705,459 @@
   </div>
 </section>
 
+<!-- ── Meet Finn ── -->
+<section class="section alt">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label">Your AI Analyst</div>
+    <h2 class="section-title">Meet Finn</h2>
+    <p class="section-sub" style="margin: 0 auto 28px;">Not a person. Better than a template.</p>
+    <div class="finn-box">
+      <div class="finn-avatar">
+        <img src="/Finn.png" alt="Finn AI avatar" loading="lazy">
+        <span class="finn-led"></span>
+      </div>
+      <p><strong>Finn is an AI analyst</strong> trained to review small business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── What Finn checks ── -->
+<section class="section white" id="what-we-check">
+  <div class="section-inner">
+    <div class="section-label">What Finn checks</div>
+    <h2 class="section-title">9 categories. 70+ data points. One clear report.</h2>
+    <p class="section-sub">Every audit covers nine areas a professional web consultant would review — from technical performance through to AI search visibility and accessibility.</p>
+
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L5 11H10L9 18L15 9H10Z"/></svg></div>
+        <h3>Performance &amp; Speed</h3>
+        <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
+        <div class="cat-example"><div class="cat-example-inner">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div></div>
+      </div>
+      <div class="cat-card cat-card--badge" data-badge="Most common issue">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M17 17l-4.5-4.5"/></svg></div>
+        <h3>SEO Foundations</h3>
+        <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
+        <div class="cat-example"><div class="cat-example-inner">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="1.5" width="9" height="17" rx="2"/><path d="M9.5 15.5h1"/></svg></div>
+        <h3>Mobile Experience</h3>
+        <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
+        <div class="cat-example"><div class="cat-example-inner">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5l3 3L5.5 17.5H2.5v-3L14.5 2.5z"/><path d="M12.5 4.5l3 3"/></svg></div>
+        <h3>Content &amp; Messaging</h3>
+        <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
+        <div class="cat-example"><div class="cat-example-inner">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5L2.5 5v4c0 4.5 3 7.5 7.5 9 4.5-1.5 7.5-4.5 7.5-9V5L10 1.5z"/><path d="M7 10l2 2 4-4"/></svg></div>
+        <h3>Trust &amp; Credibility</h3>
+        <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div></div>
+      </div>
+      <div class="cat-card cat-card--badge" data-badge="NEW: AI Search">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4.3 4.3l2.1 2.1M13.6 13.6l2.1 2.1M4.3 15.7l2.1-2.1M13.6 6.4l2.1-2.1"/><circle cx="10" cy="10" r="2.5"/></svg></div>
+        <h3>GEO / AEO</h3>
+        <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5a5.5 5.5 0 015.5 5.5c0 5-5.5 11.5-5.5 11.5S4.5 12 4.5 7A5.5 5.5 0 0110 1.5z"/><circle cx="10" cy="7" r="2"/></svg></div>
+        <h3>Local SEO</h3>
+        <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><circle cx="10" cy="10" r="4.5"/><circle cx="10" cy="10" r="1.5" fill="#6366f1" stroke="none"/></svg></div>
+        <h3>Conversion &amp; UX</h3>
+        <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
+        <div class="cat-example"><div class="cat-example-inner">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4" r="2"/><path d="M6 9.5h8M10 9.5V15M7.5 18l2.5-3 2.5 3"/></svg></div>
+        <h3>Accessibility</h3>
+        <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
+        <div class="cat-example"><div class="cat-example-inner">"WCAG accessibility guidelines are increasingly enforced globally — non-compliance carries legal risk in the US, UK, and EU."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Sample report preview ── -->
 <section class="section alt">
   <div class="section-inner" style="text-align: center;">
     <div class="section-label">What you'll receive</div>
     <h2 class="section-title">Here's what a real report looks like</h2>
-    <p class="section-sub" style="margin: 0 auto 36px;">Every report is generated fresh for your specific site — not a template. This is a sample of the cover page.</p>
+    <p class="section-sub" style="margin: 0 auto 36px;">Every report is generated fresh for your specific site — not a template. Browse the example sections below to see the depth of analysis you'll receive.</p>
 
-    <div class="report-preview">
-      <div class="preview-tag">Example</div>
-      <div class="rp-header">
-        <span class="rp-brand">FINNWORKS AI</span>
-        <span class="rp-subtitle">Website Audit Report</span>
+    <div class="rp-stack-outer">
+
+      <div class="rp-tabs" role="tablist" aria-label="Report section preview">
+        <button class="rp-tab active" role="tab" aria-selected="true"  data-slide="0">Overview</button>
+        <button class="rp-tab"        role="tab" aria-selected="false" data-slide="1">Performance</button>
+        <button class="rp-tab"        role="tab" aria-selected="false" data-slide="2">SEO</button>
+        <button class="rp-tab"        role="tab" aria-selected="false" data-slide="3">Trust</button>
+        <button class="rp-tab"        role="tab" aria-selected="false" data-slide="4">Action Plan</button>
       </div>
-      <div class="rp-body">
-        <div class="rp-score-row">
-          <div class="rp-circle">
-            <div class="rp-grade">C</div>
+
+      <div class="rp-stack" id="rpStack">
+
+        <!-- Slide 0: Overview -->
+        <div class="rp-slide" data-pos="0" role="tabpanel">
+          <span class="preview-tag">Example</span>
+          <div class="rp-header">
+            <span class="rp-brand">FINNWORKS AI</span>
+            <span class="rp-subtitle">Website Audit Report — pawsandclaws.com</span>
           </div>
-          <div class="rp-score-meta">
-            <h3>58 / 100</h3>
-            <p>Overall Health Score — clear room to improve</p>
-            <small>example-business.co.nz · analysed by Finn AI</small>
+          <div class="rp-slide-inner">
+            <div class="rp-score-row" style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+              <div class="rp-circle" style="width:72px;height:72px;">
+                <div class="rp-grade" style="font-size:32px;">C</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.8);margin-top:1px;">58/100</div>
+              </div>
+              <div class="rp-score-meta">
+                <h3 style="font-size:19px;">Overall Score: 58 / 100</h3>
+                <p style="margin-bottom:3px;">Significant issues found — clear room to improve</p>
+                <small>pawsandclaws.com · analysed by Finn AI · March 2026</small>
+              </div>
+            </div>
+            <div class="rp-divider">All 9 Categories</div>
+            <div class="rp-cat-grid">
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--red);">D</div><div class="pl">Performance</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--amber);">C</div><div class="pl">SEO</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--amber);">C</div><div class="pl">Mobile</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:#34d399;">B</div><div class="pl">Content</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--red);">D</div><div class="pl">Trust</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--red);">D</div><div class="pl">GEO / AEO</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--amber);">C</div><div class="pl">Local SEO</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:#34d399;">B</div><div class="pl">Conversion</div></div>
+              <div class="rp-cat-cell"><div class="pg" style="color:var(--amber);">C</div><div class="pl">Accessibility</div></div>
+            </div>
+            <div class="rp-divider" style="margin-top:16px;">3 Critical Failures</div>
+            <div class="rp-critical-row">
+              <div class="rp-critical-item">
+                <div class="rp-critical-label">Performance — D</div>
+                <div class="rp-critical-stat">Mobile score: 34/100</div>
+                <div class="rp-critical-note">2.4 MB of unoptimised images. 53% of visitors abandon slow pages.</div>
+              </div>
+              <div class="rp-critical-item">
+                <div class="rp-critical-label">Trust — D</div>
+                <div class="rp-critical-stat">No privacy policy</div>
+                <div class="rp-critical-note">Browsers actively warn visitors. May affect your Google ranking.</div>
+              </div>
+              <div class="rp-critical-item">
+                <div class="rp-critical-label">SEO — C</div>
+                <div class="rp-critical-stat">Title tag: "Home"</div>
+                <div class="rp-critical-note">Generic title. 8 of 14 images also missing alt text.</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="rp-pills">
-          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">Performance</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">SEO</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Mobile</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#34d399;">B</div><div class="pl">Content</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">Trust</div></div>
-        </div>
-        <div class="rp-pills">
-          <div class="rp-pill"><div class="pg" style="color:#ef4444;">D</div><div class="pl">GEO/AEO</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Local SEO</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#34d399;">B</div><div class="pl">Conversion</div></div>
-          <div class="rp-pill"><div class="pg" style="color:#f59e0b;">C</div><div class="pl">Accessibility</div></div>
-        </div>
-        <div class="rp-wins-label">Priority Quick Wins</div>
-        <div class="rp-win">
-          <div class="rp-win-num">1</div>
-          <div>
-            <div class="rp-win-title">Reduce image file sizes — images are 68% of your page weight</div>
-            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+        </div><!-- /slide 0 -->
+
+        <!-- Slide 1: Performance -->
+        <div class="rp-slide" data-pos="1" role="tabpanel">
+          <span class="preview-tag">Example</span>
+          <div class="rp-header">
+            <span class="rp-brand">FINNWORKS AI</span>
+            <span class="rp-subtitle">Performance &amp; Speed — Grade D</span>
           </div>
-        </div>
-        <div class="rp-win">
-          <div class="rp-win-num">2</div>
-          <div>
-            <div class="rp-win-title">Add a privacy policy — currently missing, browsers may warn visitors</div>
-            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+          <div class="rp-slide-inner">
+            <div class="rp-divider" style="margin-top:0;">Google PageSpeed Scores</div>
+            <div class="rp-psi-row">
+              <div class="rp-psi-item">
+                <div class="rp-psi-label">📱 Mobile</div>
+                <div class="rp-psi-bar-wrap"><div class="rp-psi-bar" style="width:34%;background:var(--red);"></div></div>
+                <div class="rp-psi-score" style="color:var(--red);">34 / 100 — Poor</div>
+              </div>
+              <div class="rp-psi-item">
+                <div class="rp-psi-label">🖥 Desktop</div>
+                <div class="rp-psi-bar-wrap"><div class="rp-psi-bar" style="width:71%;background:var(--amber);"></div></div>
+                <div class="rp-psi-score" style="color:var(--amber);">71 / 100 — Needs Work</div>
+              </div>
+            </div>
+            <div class="rp-divider">Core Web Vitals (Mobile)</div>
+            <div class="rp-metrics-row">
+              <div class="rp-metric">
+                <div class="rp-metric-val" style="color:var(--red);">5.2s</div>
+                <div class="rp-metric-lbl">LCP</div>
+                <div class="rp-metric-status fail">❌ Fail (max 2.5s)</div>
+              </div>
+              <div class="rp-metric">
+                <div class="rp-metric-val" style="color:var(--red);">890ms</div>
+                <div class="rp-metric-lbl">TBT</div>
+                <div class="rp-metric-status fail">❌ Fail (max 200ms)</div>
+              </div>
+              <div class="rp-metric">
+                <div class="rp-metric-val" style="color:var(--green);">0.12</div>
+                <div class="rp-metric-lbl">CLS</div>
+                <div class="rp-metric-status pass">✓ Pass (max 0.25)</div>
+              </div>
+            </div>
+            <div class="rp-divider">Issues Found</div>
+            <div class="rp-issues">
+              <div class="rp-issue">
+                <div class="rp-issue-icon">🔴</div>
+                <div class="rp-issue-body">
+                  <div class="rp-issue-text">2.4 MB of unoptimised images — 68% of total page weight</div>
+                  <div class="rp-issue-detail">Converting to WebP could save ~1.8 MB and cut LCP by ~1.4s</div>
+                </div>
+              </div>
+              <div class="rp-issue">
+                <div class="rp-issue-icon">🔴</div>
+                <div class="rp-issue-body">
+                  <div class="rp-issue-text">Render-blocking JavaScript (Google Tag Manager in &lt;head&gt;)</div>
+                  <div class="rp-issue-detail">Synchronous GTM script adds ~320ms delay before page renders</div>
+                </div>
+              </div>
+              <div class="rp-issue">
+                <div class="rp-issue-icon">🟡</div>
+                <div class="rp-issue-body">
+                  <div class="rp-issue-text">No lazy loading on 8 below-the-fold images</div>
+                  <div class="rp-issue-detail">Adding loading="lazy" costs nothing and reduces initial payload</div>
+                </div>
+              </div>
+              <div class="rp-issue">
+                <div class="rp-issue-icon">🟡</div>
+                <div class="rp-issue-body">
+                  <div class="rp-issue-text">No browser caching headers on static assets</div>
+                  <div class="rp-issue-detail">Returning visitors re-download all images on every page load</div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="rp-win">
-          <div class="rp-win-num">3</div>
-          <div>
-            <div class="rp-win-title">Rewrite your page title — currently "Home" which tells Google nothing</div>
-            <div class="rp-win-meta">Impact: High · Effort: Low</div>
+        </div><!-- /slide 1 -->
+
+        <!-- Slide 2: SEO -->
+        <div class="rp-slide" data-pos="2" role="tabpanel">
+          <span class="preview-tag">Example</span>
+          <div class="rp-header">
+            <span class="rp-brand">FINNWORKS AI</span>
+            <span class="rp-subtitle">SEO Foundations — Grade C</span>
           </div>
-        </div>
+          <div class="rp-slide-inner">
+            <div class="rp-divider" style="margin-top:0;">On-Page SEO Checklist</div>
+            <div class="rp-checklist">
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Page Title</div>
+                  <div class="rp-check-note">Currently set to "Home" — far too generic. Google treats the title tag as the strongest on-page ranking signal. It should include your business name, primary service, and location. Example: "Auckland Plumber | 24/7 Emergency Repairs — Smith Plumbing". This alone can move you several positions in local search results.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Meta Description</div>
+                  <div class="rp-check-note">Missing entirely. When no meta description exists, Google auto-generates a random snippet from your page content — often cut off mid-sentence and unhelpful. A well-crafted 150–160 character description with a clear call to action can improve click-through rates from search by 5–15%.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#059669" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">H1 Heading</div>
+                  <div class="rp-check-note">One clear, relevant H1 heading found on the page. Google uses this to confirm the page's primary topic and match it to search queries. No action needed here.</div>
+                </div>
+                <span class="rp-check-status pass">PASS</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Image Alt Text</div>
+                  <div class="rp-check-note">8 of 14 images have no alt text. Alt text tells Google what each image shows, contributes to image search rankings, and is required for accessibility compliance. Each image should have a short, descriptive label — not keyword-stuffed, but accurate. This is a quick fix with a meaningful SEO impact.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Schema Markup</div>
+                  <div class="rp-check-note">No structured data found. Schema markup tells Google exactly what your business is and what you offer. Without it, you're invisible to rich result features: star ratings in search, FAQ dropdowns, opening hours, and service listings. LocalBusiness schema is the highest priority fix for any local service business.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#059669" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Canonical Tag</div>
+                  <div class="rp-check-note">Set correctly across all pages. This prevents duplicate content penalties that occur when the same content is accessible at multiple URLs (e.g. with and without www, or with trailing slashes). No action needed.</div>
+                </div>
+                <span class="rp-check-status pass">PASS</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /slide 2 -->
+
+        <!-- Slide 3: Trust -->
+        <div class="rp-slide" data-pos="3" role="tabpanel">
+          <span class="preview-tag">Example</span>
+          <div class="rp-header">
+            <span class="rp-brand">FINNWORKS AI</span>
+            <span class="rp-subtitle">Trust &amp; Credibility — Grade D</span>
+          </div>
+          <div class="rp-slide-inner">
+            <div class="rp-divider" style="margin-top:0;">Trust Signal Checklist</div>
+            <div class="rp-checklist">
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#059669" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">HTTPS / SSL Certificate</div>
+                  <div class="rp-check-note">Secure connection confirmed on all pages. Visitors won't see a "Not Secure" browser warning, and Google gives a small but consistent ranking boost to HTTPS sites. No action needed.</div>
+                </div>
+                <span class="rp-check-status pass">PASS</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Privacy Policy</div>
+                  <div class="rp-check-note">No privacy policy page found. This is a legal requirement in NZ, AU, UK, EU and most US states if your site uses contact forms, analytics tools, or cookies — which this site does. Some browsers actively display a warning to users. Fix: add a basic privacy policy page and link it in your footer. Templates are freely available online.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#059669" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-5" stroke="#059669" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Phone Number</div>
+                  <div class="rp-check-note">Clearly visible in the site header on all pages. Tap-to-call confirmed working on mobile — critical for local service businesses where the majority of first contact comes via phone call.</div>
+                </div>
+                <span class="rp-check-status pass">PASS</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Customer Testimonials</div>
+                  <div class="rp-check-note">No testimonials or reviews found on the homepage. Social proof is the single biggest driver of conversion for first-time visitors — 88% of consumers trust online reviews as much as personal recommendations. Even 2–3 short quotes with a name and suburb can meaningfully increase the rate at which visitors make an enquiry.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2.5l7.5 14H2.5L10 2.5z" stroke="#d97706" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8.5v3.5" stroke="#d97706" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="0.75" fill="#d97706"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Business Address</div>
+                  <div class="rp-check-note">Address found in the footer only. For local SEO, it should also appear on your Contact page and be embedded in LocalBusiness schema markup. Google uses address consistency across your site and Google Business Profile to determine local search rankings — inconsistency is a common ranking penalty.</div>
+                </div>
+                <span class="rp-check-status warn">WARN</span>
+              </div>
+              <div class="rp-check-row">
+                <div class="rp-check-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#ef4444" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <div class="rp-check-body">
+                  <div class="rp-check-label">Google Reviews Widget</div>
+                  <div class="rp-check-note">No reviews widget integrated on the site. Embedding your live Google star rating and recent reviews directly on your homepage is one of the highest-impact trust signals available. Research consistently shows a 15–30% increase in conversion rates for local service businesses that display live reviews on-site.</div>
+                </div>
+                <span class="rp-check-status fail">FAIL</span>
+              </div>
+            </div>
+          </div>
+        </div><!-- /slide 3 -->
+
+        <!-- Slide 4: Action Plan -->
+        <div class="rp-slide" data-pos="4" role="tabpanel">
+          <span class="preview-tag">Example</span>
+          <div class="rp-header">
+            <span class="rp-brand">FINNWORKS AI</span>
+            <span class="rp-subtitle">Priority Action Plan — 6 Items Ranked by Impact</span>
+          </div>
+          <div class="rp-slide-inner">
+            <div class="rp-action-item">
+              <div class="rp-action-num">1</div>
+              <div>
+                <div class="rp-action-title">Compress and convert all images to WebP format</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">Performance</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-low">Effort: Low</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~30 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-action-item">
+              <div class="rp-action-num">2</div>
+              <div>
+                <div class="rp-action-title">Add a Privacy Policy page and link it in your footer</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">Trust</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-low">Effort: Low</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~20 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-action-item">
+              <div class="rp-action-num">3</div>
+              <div>
+                <div class="rp-action-title">Rewrite page title and add a meta description</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">SEO</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-low">Effort: Low</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~15 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-action-item">
+              <div class="rp-action-num">4</div>
+              <div>
+                <div class="rp-action-title">Add alt text to the 8 images missing descriptions</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">SEO</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-low">Effort: Low</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~20 min</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-action-item">
+              <div class="rp-action-num">5</div>
+              <div>
+                <div class="rp-action-title">Defer Google Tag Manager to stop blocking page render</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">Performance</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-med">Effort: Medium</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~2 hrs</span>
+                </div>
+              </div>
+            </div>
+            <div class="rp-action-item">
+              <div class="rp-action-num">6</div>
+              <div>
+                <div class="rp-action-title">Add 3 customer testimonials with Review schema markup</div>
+                <div class="rp-action-meta">
+                  <span class="rp-action-badge rp-badge-cat">Trust</span>
+                  <span class="rp-action-badge rp-badge-high">Impact: High</span>
+                  <span class="rp-action-badge rp-badge-med">Effort: Medium</span>
+                  <span class="rp-action-badge rp-badge-time">⏱ ~3 hrs</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /slide 4 -->
+
+      </div><!-- /rp-stack -->
+
+      <div class="rp-arrows">
+        <button class="rp-arrow" id="rpPrev" aria-label="Previous section">&#8592;</button>
+        <span class="rp-arrow-label" id="rpArrowLabel">1 of 5</span>
+        <button class="rp-arrow" id="rpNext" aria-label="Next section">&#8594;</button>
       </div>
-    </div>
-    <p style="font-size: 13px; color: var(--muted); margin-top: 16px;">Your report also includes detailed section breakdowns and a full 6-item action plan.</p>
+
+    </div><!-- /rp-stack-outer -->
+    <p style="font-size:13px;color:var(--muted);margin-top:16px;">Your report covers all 9 categories with this level of specific, actionable detail — generated fresh for your site.</p>
   </div>
 </section>
 
+<!-- ── Pull-quote divider ── -->
+<div class="pullquote-strip">
+  <p>"Most audit tools tell you what's wrong.<br>Finn tells you <strong>how to fix it</strong> — step by step."</p>
+</div>
+
 <!-- ── Fix Guide upsell ── -->
-<section class="section dark">
+<section class="section dark" id="pricing">
   <div class="upsell-inner">
     <!-- Left: copy + purchase form -->
     <div class="upsell-left">
@@ -600,11 +1172,11 @@
         <li>Specific to your site — not generic advice</li>
         <li>One-time purchase, yours to keep</li>
       </ul>
-      <div class="upsell-price">$49 <sub>NZD</sub></div>
+      <div class="upsell-price">$49 <sub>NZD <span class="upsell-usd">~$29 USD</span></sub></div>
       <div class="upsell-price-note">One-time · Instant email delivery · No subscription</div>
 
       <form class="upgrade-form" id="upgradeForm">
-        <input type="text"  id="upgradeUrl"   placeholder="yoursite.co.nz"   required>
+        <input type="url"  id="upgradeUrl"   placeholder="yoursite.com"   required>
         <input type="email" id="upgradeEmail" placeholder="your@email.com"   required>
         <button type="submit" class="upgrade-btn">Get my Fix Guide → $49</button>
       </form>
@@ -645,8 +1217,25 @@
   </div>
 </section>
 
+<!-- ── Second CTA ── -->
+<section class="section alt" id="second-cta">
+  <div class="section-inner section-inner--narrow" style="text-align: center;">
+    <h2 class="section-title">Ready to find out what's holding your site back?</h2>
+    <p class="section-sub" style="margin: 0 auto 28px;">It takes 30 seconds to submit. Your report arrives in about 3 minutes. Free.</p>
+    <div class="form-card form-card--compact">
+      <form id="auditForm2">
+        <input type="url"   name="url"   placeholder="yoursite.com"      autocomplete="url"   required aria-label="Your website URL">
+        <input type="email" name="email" placeholder="you@example.com"   autocomplete="email" required aria-label="Your email address">
+        <button type="submit" class="submit-btn" id="submitBtn2">Audit my website — it's free →</button>
+        <p class="fine-print">No credit card. No account. Report in your inbox in ~3 minutes.</p>
+      </form>
+      <div class="status" id="statusMsg2"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ── FAQ ── -->
-<section class="section white">
+<section class="section white" id="faq">
   <div class="section-inner" style="text-align: center;">
     <div class="section-label">Questions</div>
     <h2 class="section-title" style="margin-bottom: 40px;">Frequently asked questions</h2>
@@ -666,7 +1255,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">Who is this for? <span class="faq-chevron">›</span></button>
-        <div class="faq-a">FinnWorks is built for small business owners who have a website but aren't technical developers. The free report is written in plain English — no jargon. The Fix Guide is designed to be handed directly to a web developer, or followed yourself if you're comfortable with basic website editing.</div>
+        <div class="faq-a">FinnWorks is built for small business owners, freelancers, startups, and agencies who want an honest audit without paying $500+ for a consultant. The free report is written in plain English — no jargon. The Fix Guide is designed to be handed directly to a web developer, or followed yourself if you're comfortable with basic website editing.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What's the difference between the free report and the Fix Guide? <span class="faq-chevron">›</span></button>
@@ -700,16 +1289,41 @@
   const submitBtn = document.getElementById('submitBtn');
   const statusMsg = document.getElementById('statusMsg');
 
+  function validateUrl(val) {
+    try { new URL(val.startsWith('http') ? val : 'https://' + val); return true; } catch { return false; }
+  }
+  function setFieldError(input, msg) {
+    input.classList.add('input-error');
+    let err = input.parentElement.querySelector('.field-error');
+    if (!err) { err = document.createElement('p'); err.className = 'field-error'; input.after(err); }
+    err.textContent = msg;
+  }
+  function clearFieldError(input) {
+    input.classList.remove('input-error');
+    const err = input.parentElement.querySelector('.field-error');
+    if (err) err.remove();
+  }
+
   auditForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const urlInput   = document.getElementById('urlInput');
+    const emailInput = document.getElementById('emailInput');
+    clearFieldError(urlInput); clearFieldError(emailInput);
+
+    let url = urlInput.value.trim();
+    const email = emailInput.value.trim();
+
+    let valid = true;
+    if (!url) { setFieldError(urlInput, 'Please enter your website URL.'); valid = false; }
+    else if (!validateUrl(url)) { setFieldError(urlInput, 'Please enter a valid URL (e.g. yoursite.com).'); valid = false; }
+    if (!email || !email.includes('@')) { setFieldError(emailInput, 'Please enter a valid email address.'); valid = false; }
+    if (!valid) return;
+
+    if (!url.startsWith('http')) url = 'https://' + url;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Analysing your site…';
+    submitBtn.textContent = 'Auditing your site…';
     statusMsg.className = 'status';
     statusMsg.textContent = '';
-
-    let url = document.getElementById('urlInput').value.trim();
-    const email = document.getElementById('emailInput').value.trim();
-    if (!url.startsWith('http')) url = 'https://' + url;
 
     try {
       const res  = await fetch('/audit', {
@@ -730,7 +1344,7 @@
       statusMsg.textContent = '⚠️ ' + err.message;
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Analyse my website — it\'s free →';
+      submitBtn.textContent = 'Audit my website — it\'s free →';
     }
   });
 
@@ -752,6 +1366,205 @@
       if (!isOpen) item.classList.add('open');
     });
   });
+</script>
+
+<!-- ── Mobile sticky bar ── -->
+<div class="sticky-bar" id="stickyBar" aria-hidden="true">
+  <a href="#audit-form" class="sticky-bar-btn">Get your free audit →</a>
+</div>
+
+<script>
+  // Show sticky bar after user scrolls past hero form
+  const stickyBar = document.getElementById('stickyBar');
+  const heroForm  = document.getElementById('audit-form');
+  const observer  = new IntersectionObserver(
+    ([entry]) => {
+      stickyBar.classList.toggle('sticky-bar--visible', !entry.isIntersecting);
+      stickyBar.setAttribute('aria-hidden', entry.isIntersecting ? 'true' : 'false');
+    },
+    { threshold: 0 }
+  );
+  observer.observe(heroForm);
+
+  // Second form submission — reuse same endpoint
+  const auditForm2  = document.getElementById('auditForm2');
+  const submitBtn2  = document.getElementById('submitBtn2');
+  const statusMsg2  = document.getElementById('statusMsg2');
+  if (auditForm2) {
+    auditForm2.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url   = auditForm2.querySelector('input[type="url"]').value.trim();
+      const email = auditForm2.querySelector('input[type="email"]').value.trim();
+      submitBtn2.disabled = true;
+      submitBtn2.textContent = 'Running audit…';
+      statusMsg2.textContent = '';
+      try {
+        const res = await fetch('/audit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, email }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          statusMsg2.textContent = '✓ Report on its way! Check your inbox in a few minutes.';
+          statusMsg2.className = 'status status--ok';
+          auditForm2.reset();
+        } else {
+          statusMsg2.textContent = data.error || 'Something went wrong. Please try again.';
+          statusMsg2.className = 'status status--err';
+        }
+      } catch {
+        statusMsg2.textContent = 'Network error. Please try again.';
+        statusMsg2.className = 'status status--err';
+      } finally {
+        submitBtn2.disabled = false;
+        submitBtn2.textContent = 'Audit my website — it\'s free →';
+      }
+    });
+  }
+</script>
+<script>
+  function equaliseQuoteHeights() {
+    const inners = document.querySelectorAll('.cat-example-inner');
+    // Reset
+    inners.forEach(el => { el.style.minHeight = ''; });
+    // Group by card's top offset to detect rows at any column count
+    const rows = {};
+    inners.forEach(el => {
+      const top = Math.round(el.closest('.cat-card').getBoundingClientRect().top);
+      if (!rows[top]) rows[top] = [];
+      rows[top].push(el);
+    });
+    // Set minHeight to max in each row
+    Object.values(rows).forEach(group => {
+      const max = Math.max(...group.map(el => el.offsetHeight));
+      group.forEach(el => { el.style.minHeight = max + 'px'; });
+    });
+  }
+
+  window.addEventListener('load', equaliseQuoteHeights);
+  window.addEventListener('resize', () => {
+    clearTimeout(window._eqt);
+    window._eqt = setTimeout(equaliseQuoteHeights, 100);
+  });
+</script>
+<script>
+  /* ── Report preview carousel (quarter-sphere Web Animations API) ── */
+  (function () {
+    const slides  = Array.from(document.querySelectorAll('#rpStack .rp-slide'));
+    const tabs    = Array.from(document.querySelectorAll('.rp-tab'));
+    const prevBtn = document.getElementById('rpPrev');
+    const nextBtn = document.getElementById('rpNext');
+    const lbl     = document.getElementById('rpArrowLabel');
+    const stack   = document.getElementById('rpStack');
+    const total   = slides.length;
+    let active    = 0;
+
+    // All rest positions are flat (rotateY = 0)
+    function stateFor(rel) {
+      if (rel === 0)         return { tx:    0, sc: 1,    op: 1,   z: 3 };
+      if (rel === 1)         return { tx:  100, sc: 0.88, op: 0.5, z: 2 };
+      if (rel === total - 1) return { tx: -100, sc: 0.88, op: 0.5, z: 2 };
+      if (rel < total / 2)   return { tx:  220, sc: 0.8,  op: 0,   z: 1 };
+      return                        { tx: -220, sc: 0.8,  op: 0,   z: 1 };
+    }
+
+    function tf(tx, sc, ry) {
+      return 'translateX(' + tx + '%) rotateY(' + (ry || 0) + 'deg) scale(' + sc + ')';
+    }
+
+    function set(i, st) {
+      const s = slides[i];
+      s.style.transform     = tf(st.tx, st.sc);
+      s.style.opacity       = st.op;
+      s.style.zIndex        = st.z;
+      s.style.pointerEvents = st.z === 3 ? 'auto' : 'none';
+    }
+
+    function setHeight() {
+      // Reset so natural heights are measurable
+      slides.forEach(s => { s.style.minHeight = ''; });
+      const maxH = Math.max(...slides.map(s => s.offsetHeight));
+      // Force all slides to the same height
+      slides.forEach(s => { s.style.minHeight = maxH + 'px'; });
+      stack.style.height = (maxH + 12) + 'px';
+    }
+
+    function goTo(idx) {
+      const prev = active;
+      active = ((idx % total) + total) % total;
+      if (active === prev) return;
+
+      let diff = active - prev;
+      if (diff >  total / 2) diff -= total;
+      if (diff < -total / 2) diff += total;
+
+      slides.forEach((s, i) => {
+        const prevRel = (i - prev   + total) % total;
+        const newRel  = (i - active + total) % total;
+        const from    = stateFor(prevRel);
+        const to      = stateFor(newRel);
+
+        // Cancel any in-flight animation
+        s.getAnimations().forEach(a => a.cancel());
+
+        // Hidden→hidden on wrong side: teleport silently, no animation
+        if (from.op === 0 && to.op === 0 && Math.sign(from.tx) !== Math.sign(to.tx)) {
+          set(i, to);
+          return;
+        }
+
+        let kf;
+        const crossesCenter = prevRel === 0 || newRel === 0;
+        if (crossesCenter) {
+          // Quarter-sphere: tip onto edge at midpoint, then lay flat again
+          const midTx = (from.tx + to.tx) / 2;
+          const ry    = to.tx > from.tx ? 90 : -90;
+          const midOp = Math.max(from.op, to.op) * 0.5;
+          kf = [
+            { transform: tf(from.tx, from.sc),     opacity: from.op              },
+            { transform: tf(midTx,   0.88, ry),    opacity: midOp,  offset: 0.42 },
+            { transform: tf(to.tx,   to.sc),        opacity: to.op               }
+          ];
+        } else {
+          kf = [
+            { transform: tf(from.tx, from.sc), opacity: from.op },
+            { transform: tf(to.tx,   to.sc),   opacity: to.op   }
+          ];
+        }
+
+        s.style.zIndex        = Math.max(from.z, to.z);
+        s.style.pointerEvents = 'none';
+
+        const anim = s.animate(kf, { duration: 540, easing: 'ease-in-out', fill: 'forwards' });
+        anim.onfinish = function () { set(i, to); anim.cancel(); };
+      });
+
+      tabs.forEach((t, i) => {
+        t.classList.toggle('active', i === active);
+        t.setAttribute('aria-selected', i === active ? 'true' : 'false');
+      });
+      lbl.textContent = (active + 1) + ' of ' + total;
+    }
+
+    // Initialise — place all slides instantly
+    slides.forEach((s, i) => set(i, stateFor((i - active + total) % total)));
+    setHeight();
+
+    tabs.forEach((t, i) => t.addEventListener('click', () => goTo(i)));
+    prevBtn.addEventListener('click', () => goTo(active - 1));
+    nextBtn.addEventListener('click', () => goTo(active + 1));
+    stack.setAttribute('tabindex', '0');
+    stack.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(active - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1); }
+    });
+
+    window.addEventListener('resize', () => {
+      clearTimeout(window._rpT);
+      window._rpT = setTimeout(setHeight, 100);
+    });
+  })();
 </script>
 </body>
 </html>
