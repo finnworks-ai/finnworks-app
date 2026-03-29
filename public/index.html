@@ -41,7 +41,7 @@
         "@type": "Organization",
         "name": "FinnWorks AI",
         "url": "https://finnworks.ai",
-        "description": "AI-powered website audit tool that checks 9 categories and 70+ data points for small business owners.",
+        "description": "AI-powered website audit tool that checks 9 categories and 70+ data points for business owners, freelancers, and agencies.",
         "email": "finn@finnworks.ai",
         "logo": "https://finnworks.ai/Finn.png"
       },
@@ -66,12 +66,12 @@
           {
             "@type": "Question",
             "name": "Who is this for?",
-            "acceptedAnswer": { "@type": "Answer", "text": "FinnWorks is built for small business owners, freelancers, startups, and agencies who want a fast, honest audit without paying $500+ for a consultant." }
+            "acceptedAnswer": { "@type": "Answer", "text": "FinnWorks is built for business owners, freelancers, startups, and agencies who want a fast, honest audit without paying $500+ for a consultant." }
           },
           {
             "@type": "Question",
             "name": "What's the difference between the free report and the Fix Guide?",
-            "acceptedAnswer": { "@type": "Answer", "text": "The free report shows you what's wrong. The Fix Guide ($49 NZD) gives you step-by-step instructions for fixing every issue — written in plain English, not technical jargon." }
+            "acceptedAnswer": { "@type": "Answer", "text": "The free report shows you what's wrong. The Fix Guide ($49 USD) gives you step-by-step instructions for fixing every issue — written in plain English, not technical jargon." }
           },
           {
             "@type": "Question",
@@ -277,6 +277,7 @@
     .step-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
     .step-card p  { font-size: 13px; color: var(--muted); line-height: 1.55; }
 
+
     /* ── Sample report preview ── */
     .report-preview {
       border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
@@ -465,7 +466,7 @@
     .audit-counter-num { color: var(--accent-light); font-weight: 600; }
 
     /* ── USD price note ── */
-    .upsell-usd { font-size: 13px; color: #64748b; font-weight: 400; }
+
 
     /* ── Pull-quote strip ── */
     .pullquote-strip {
@@ -513,23 +514,25 @@
     }
     .form-card--compact input:focus { outline: none; border-color: var(--accent); }
 
-    /* ── Mobile sticky bar ── */
+    /* ── Sticky CTA bar ── */
     .sticky-bar {
-      display: none;
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
       background: var(--accent); padding: 14px 20px;
       box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
       text-align: center;
       transform: translateY(100%);
-      transition: transform 0.25s ease;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
     }
-    .sticky-bar--visible { transform: translateY(0); }
+    .sticky-bar--visible {
+      transform: translateY(0);
+      opacity: 1; visibility: visible; pointer-events: auto;
+    }
     .sticky-bar-btn {
       color: white; font-size: 15px; font-weight: 700; text-decoration: none;
       letter-spacing: 0.01em;
     }
     @media (max-width: 640px) {
-      .sticky-bar { display: block; }
       .nav-links { display: none; }
     }
 
@@ -648,7 +651,7 @@
   <div class="powered-badge">⚡ Powered by Google PageSpeed + FinnWorks AI</div>
 
   <h1>Is your website <span>costing you customers?</span></h1>
-  <p class="sub">Most small business websites have 3–5 issues silently driving visitors away. Finn, our AI analyst, finds them — and sends you a full report in minutes. Free.</p>
+  <p class="sub">Most business websites have 3–5 issues silently driving visitors away. Finn, our AI analyst, finds them — and sends you a full report in minutes. Free.</p>
 
   <div class="form-card" id="audit-form">
     <form id="auditForm">
@@ -660,7 +663,7 @@
 
       <button type="submit" class="submit-btn" id="submitBtn">Audit my website — it's free →</button>
       <p class="fine-print">No credit card. No account. Report in your inbox in ~3 minutes.</p>
-      <p class="audit-counter"><span class="audit-counter-num">1,247</span> audits completed · Your data is never sold or shared</p>
+      <p class="audit-counter"><span class="audit-counter-num" id="auditCountNum">1,247</span> audits completed · Your data is never sold or shared</p>
     </form>
     <div class="status" id="statusMsg"></div>
   </div>
@@ -716,73 +719,7 @@
         <img src="/Finn.png" alt="Finn AI avatar" loading="lazy">
         <span class="finn-led"></span>
       </div>
-      <p><strong>Finn is an AI analyst</strong> trained to review small business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── What Finn checks ── -->
-<section class="section white" id="what-we-check">
-  <div class="section-inner">
-    <div class="section-label">What Finn checks</div>
-    <h2 class="section-title">9 categories. 70+ data points. One clear report.</h2>
-    <p class="section-sub">Every audit covers nine areas a professional web consultant would review — from technical performance through to AI search visibility and accessibility.</p>
-
-    <div class="cat-grid">
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L5 11H10L9 18L15 9H10Z"/></svg></div>
-        <h3>Performance &amp; Speed</h3>
-        <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
-        <div class="cat-example"><div class="cat-example-inner">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div></div>
-      </div>
-      <div class="cat-card cat-card--badge" data-badge="Most common issue">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M17 17l-4.5-4.5"/></svg></div>
-        <h3>SEO Foundations</h3>
-        <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
-        <div class="cat-example"><div class="cat-example-inner">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="1.5" width="9" height="17" rx="2"/><path d="M9.5 15.5h1"/></svg></div>
-        <h3>Mobile Experience</h3>
-        <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
-        <div class="cat-example"><div class="cat-example-inner">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5l3 3L5.5 17.5H2.5v-3L14.5 2.5z"/><path d="M12.5 4.5l3 3"/></svg></div>
-        <h3>Content &amp; Messaging</h3>
-        <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
-        <div class="cat-example"><div class="cat-example-inner">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5L2.5 5v4c0 4.5 3 7.5 7.5 9 4.5-1.5 7.5-4.5 7.5-9V5L10 1.5z"/><path d="M7 10l2 2 4-4"/></svg></div>
-        <h3>Trust &amp; Credibility</h3>
-        <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div></div>
-      </div>
-      <div class="cat-card cat-card--badge" data-badge="NEW: AI Search">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4.3 4.3l2.1 2.1M13.6 13.6l2.1 2.1M4.3 15.7l2.1-2.1M13.6 6.4l2.1-2.1"/><circle cx="10" cy="10" r="2.5"/></svg></div>
-        <h3>GEO / AEO</h3>
-        <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5a5.5 5.5 0 015.5 5.5c0 5-5.5 11.5-5.5 11.5S4.5 12 4.5 7A5.5 5.5 0 0110 1.5z"/><circle cx="10" cy="7" r="2"/></svg></div>
-        <h3>Local SEO</h3>
-        <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
-        <div class="cat-example"><div class="cat-example-inner">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><circle cx="10" cy="10" r="4.5"/><circle cx="10" cy="10" r="1.5" fill="#6366f1" stroke="none"/></svg></div>
-        <h3>Conversion &amp; UX</h3>
-        <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
-        <div class="cat-example"><div class="cat-example-inner">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div></div>
-      </div>
-      <div class="cat-card">
-        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4" r="2"/><path d="M6 9.5h8M10 9.5V15M7.5 18l2.5-3 2.5 3"/></svg></div>
-        <h3>Accessibility</h3>
-        <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
-        <div class="cat-example"><div class="cat-example-inner">"WCAG accessibility guidelines are increasingly enforced globally — non-compliance carries legal risk in the US, UK, and EU."</div></div>
-      </div>
+      <p><strong>Finn is an AI analyst</strong> trained to review business websites the way an experienced web consultant would — checking 9 categories and 70+ data points across performance, SEO, mobile, content, trust, AI visibility, local search, conversion, and accessibility. The difference: Finn runs the same analysis in 3 minutes, not 3 hours, and the report is free.</p>
     </div>
   </div>
 </section>
@@ -1151,6 +1088,73 @@
   </div>
 </section>
 
+
+<!-- ── What Finn checks ── -->
+<section class="section white" id="what-we-check">
+  <div class="section-inner">
+    <div class="section-label">What Finn checks</div>
+    <h2 class="section-title">9 categories. 70+ data points. One clear report.</h2>
+    <p class="section-sub">Every audit covers nine areas a professional web consultant would review — from technical performance through to AI search visibility and accessibility.</p>
+
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2L5 11H10L9 18L15 9H10Z"/></svg></div>
+        <h3>Performance &amp; Speed</h3>
+        <p>Load time and Google PageSpeed scores for both mobile and desktop — and exactly what's slowing you down.</p>
+        <div class="cat-example"><div class="cat-example-inner">"53% of mobile visitors leave a site that takes longer than 3 seconds to load. We'll tell you where your time is going."</div></div>
+      </div>
+      <div class="cat-card cat-card--badge" data-badge="Most common issue">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M17 17l-4.5-4.5"/></svg></div>
+        <h3>SEO Foundations</h3>
+        <p>Title tags, meta descriptions, headings, and image alt text — the basics Google uses to rank your site.</p>
+        <div class="cat-example"><div class="cat-example-inner">"A missing or duplicated page title is one of the most common — and easiest — SEO issues to fix."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="1.5" width="9" height="17" rx="2"/><path d="M9.5 15.5h1"/></svg></div>
+        <h3>Mobile Experience</h3>
+        <p>How your site performs for the 60%+ of visitors who are on a phone or tablet.</p>
+        <div class="cat-example"><div class="cat-example-inner">"If your site isn't optimised for mobile, Google ranks it lower for everyone — not just phone users."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5l3 3L5.5 17.5H2.5v-3L14.5 2.5z"/><path d="M12.5 4.5l3 3"/></svg></div>
+        <h3>Content &amp; Messaging</h3>
+        <p>Does your homepage explain what you do within 5 seconds? Is there a clear call to action?</p>
+        <div class="cat-example"><div class="cat-example-inner">"Visitors decide whether to stay or leave within 8 seconds. Your messaging needs to work fast."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5L2.5 5v4c0 4.5 3 7.5 7.5 9 4.5-1.5 7.5-4.5 7.5-9V5L10 1.5z"/><path d="M7 10l2 2 4-4"/></svg></div>
+        <h3>Trust &amp; Credibility</h3>
+        <p>HTTPS, privacy policy, phone number, testimonials — signals that turn cautious visitors into customers.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Missing a privacy policy? Browsers now warn visitors on sites that don't have one."</div></div>
+      </div>
+      <div class="cat-card cat-card--badge" data-badge="NEW: AI Search">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5v3M10 15.5v3M1.5 10h3M15.5 10h3M4.3 4.3l2.1 2.1M13.6 13.6l2.1 2.1M4.3 15.7l2.1-2.1M13.6 6.4l2.1-2.1"/><circle cx="10" cy="10" r="2.5"/></svg></div>
+        <h3>GEO / AEO</h3>
+        <p>Is your site structured for AI search? Google AI Overviews, ChatGPT, and Perplexity pull from sites with clear FAQ content and schema markup.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Sites with FAQ schema and a clear entity description are 3x more likely to appear in AI-generated answers."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 1.5a5.5 5.5 0 015.5 5.5c0 5-5.5 11.5-5.5 11.5S4.5 12 4.5 7A5.5 5.5 0 0110 1.5z"/><circle cx="10" cy="7" r="2"/></svg></div>
+        <h3>Local SEO</h3>
+        <p>Will your site appear when people search for services in your area? Address, maps, and local schema are all checked.</p>
+        <div class="cat-example"><div class="cat-example-inner">"Most local searches include 'near me' — your site needs to tell Google where you are and what you do."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><circle cx="10" cy="10" r="4.5"/><circle cx="10" cy="10" r="1.5" fill="#6366f1" stroke="none"/></svg></div>
+        <h3>Conversion &amp; UX</h3>
+        <p>Can a visitor easily contact you, book, or buy? Checks forms, phone in header, contact page, and booking widgets.</p>
+        <div class="cat-example"><div class="cat-example-inner">"A site can rank #1 on Google and still fail to convert if the phone number is buried in the footer."</div></div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4" r="2"/><path d="M6 9.5h8M10 9.5V15M7.5 18l2.5-3 2.5 3"/></svg></div>
+        <h3>Accessibility</h3>
+        <p>Basic checks for alt text, form labels, heading structure, and ARIA roles — for all visitors, not just those with disabilities.</p>
+        <div class="cat-example"><div class="cat-example-inner">"WCAG accessibility guidelines are increasingly enforced globally — non-compliance carries legal risk in the US, UK, and EU."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── Pull-quote divider ── -->
 <div class="pullquote-strip">
   <p>"Most audit tools tell you what's wrong.<br>Finn tells you <strong>how to fix it</strong> — step by step."</p>
@@ -1172,7 +1176,7 @@
         <li>Specific to your site — not generic advice</li>
         <li>One-time purchase, yours to keep</li>
       </ul>
-      <div class="upsell-price">$49 <sub>NZD <span class="upsell-usd">~$29 USD</span></sub></div>
+      <div class="upsell-price">$49 <sub>USD</sub></div>
       <div class="upsell-price-note">One-time · Instant email delivery · No subscription</div>
 
       <form class="upgrade-form" id="upgradeForm">
@@ -1255,7 +1259,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q">Who is this for? <span class="faq-chevron">›</span></button>
-        <div class="faq-a">FinnWorks is built for small business owners, freelancers, startups, and agencies who want an honest audit without paying $500+ for a consultant. The free report is written in plain English — no jargon. The Fix Guide is designed to be handed directly to a web developer, or followed yourself if you're comfortable with basic website editing.</div>
+        <div class="faq-a">FinnWorks is built for business owners, freelancers, startups, and agencies who want an honest audit without paying $500+ for a consultant. The free report is written in plain English — no jargon. The Fix Guide is designed to be handed directly to a web developer, or followed yourself if you're comfortable with basic website editing.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What's the difference between the free report and the Fix Guide? <span class="faq-chevron">›</span></button>
@@ -1447,6 +1451,38 @@
     clearTimeout(window._eqt);
     window._eqt = setTimeout(equaliseQuoteHeights, 100);
   });
+
+  /* ── Live audit counter ── */
+  (function () {
+    const el = document.getElementById('auditCountNum');
+    if (!el) return;
+
+    function formatNum(n) {
+      return n.toLocaleString('en-US');
+    }
+
+    function animateCount(from, to, duration) {
+      const start = performance.now();
+      function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // Ease out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatNum(Math.round(from + (to - from) * eased));
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    fetch('/api/audit-count')
+      .then(r => r.json())
+      .then(data => {
+        const live = data.count;
+        const current = parseInt(el.textContent.replace(/,/g, ''), 10) || 1247;
+        if (live > current) animateCount(current, live, 1200);
+        else el.textContent = formatNum(live);
+      })
+      .catch(() => { /* keep the static fallback already in the HTML */ });
+  })();
 </script>
 <script>
   /* ── Report preview carousel (quarter-sphere Web Animations API) ── */

@@ -15,6 +15,7 @@ const { scrapeUrl } = require('./auditor/scraper');
 const { generateFullReport } = require('./auditor/ai-analyzer');
 const { generatePDF } = require('./report/pdf-generator');
 const { sendAuditEmail } = require('./email/gmail');
+const { incrementAuditCount } = require('./counter');
 
 async function runAuditPipeline({ websiteUrl, customerEmail }) {
   console.log(`[pipeline] Starting audit for ${websiteUrl} → ${customerEmail}`);
@@ -43,6 +44,10 @@ async function runAuditPipeline({ websiteUrl, customerEmail }) {
   console.log(`[pipeline] Sending email... websiteUrl=${websiteUrl}`);
   const emailResult = await sendAuditEmail({ to: customerEmail, websiteUrl, pdfBuffer, overallScore: auditResult.overallScore, actionPlan: auditResult.actionPlan });
   console.log(`[pipeline] Email sent. Message ID: ${emailResult.messageId}`);
+
+  // Increment persistent audit counter
+  const count = await incrementAuditCount();
+  console.log(`[pipeline] Audit count: ${count}`);
 
   return {
     success: true,
