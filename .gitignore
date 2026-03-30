@@ -5,3 +5,4 @@ token.json
 *.pdf
 npm-debug.log*
 .DS_Store
+dev-report.json

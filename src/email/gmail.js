@@ -122,14 +122,13 @@ function buildPlainMessage({ to, subject, html, text }) {
   return Buffer.from(message).toString('base64url');
 }
 
-// ─── Free audit email (with PDF attached + upsell CTA) ───────────────────────
+// ─── Free audit email (link to hosted report, no attachment) ─────────────────
 
-async function sendAuditEmail({ to, websiteUrl, pdfBuffer, overallScore, actionPlan }) {
+async function sendAuditEmail({ to, websiteUrl, reportUrl, overallScore, actionPlan }) {
   const domain = new URL(websiteUrl).hostname.replace('www.', '');
   console.log(`[email] sendAuditEmail - websiteUrl: ${websiteUrl}, domain: ${domain}`);
   const upgradeUrl = `${BASE_URL}/upgrade?url=${encodeURIComponent(websiteUrl)}&email=${encodeURIComponent(to)}`;
 
-  // Score messaging tuned for small business owners
   const scoreHeadline = overallScore >= 75
     ? `Good foundations — here's how to push to excellent`
     : overallScore >= 55
@@ -139,34 +138,26 @@ async function sendAuditEmail({ to, websiteUrl, pdfBuffer, overallScore, actionP
   const scoreColor = overallScore >= 75 ? '#10b981' : overallScore >= 55 ? '#f59e0b' : '#ef4444';
   const scoreGrade = overallScore >= 90 ? 'A' : overallScore >= 75 ? 'B' : overallScore >= 60 ? 'C' : overallScore >= 40 ? 'D' : 'F';
 
-  // Top 3 action plan items for the "what we found" section
+  // Top 3 action plan items — titles only as a teaser (full details on the report page)
   const topFixes = (actionPlan && actionPlan.fixes ? actionPlan.fixes : []).slice(0, 3);
 
-  // First fix teaser for the upsell section
-  const teaserFix = topFixes[0] || null;
-
   const findingsHtml = topFixes.length > 0
-    ? topFixes.map(f => `
+    ? topFixes.map((f, i) => `
         <tr>
-          <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
-            <span style="color: #f59e0b; font-weight: bold; margin-right: 8px;">⚠</span>
-            <strong style="color: #1e293b;">${f.title}</strong>
-            <span style="display: block; margin-top: 2px; margin-left: 20px; font-size: 12px; color: #64748b;">
-              Impact: <strong style="color: ${f.impact === 'High' ? '#10b981' : '#f59e0b'};">${f.impact || '—'}</strong>
-              &nbsp;·&nbsp;
-              Effort: ${f.effort || '—'}
-            </span>
+          <td style="padding:10px 0;border-bottom:1px solid #e5e7eb;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:22px;height:22px;border-radius:50%;background:#6366f1;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${i + 1}</div>
+              <div>
+                <strong style="color:#1e293b;font-size:14px;">${f.title}</strong>
+                <span style="display:block;margin-top:2px;font-size:12px;color:#64748b;">
+                  Impact: <strong style="color:${f.impact === 'High' ? '#10b981' : '#f59e0b'};">${f.impact || '—'}</strong>
+                  &nbsp;·&nbsp; Effort: ${f.effort || '—'}
+                </span>
+              </div>
+            </div>
           </td>
         </tr>`).join('')
-    : `<tr><td style="padding: 10px 0; color: #64748b;">Full details are in the attached PDF.</td></tr>`;
-
-  const teaserHtml = teaserFix ? `
-    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px; margin: 0 0 16px 0;">
-      <div style="font-size: 11px; font-weight: 700; color: #6366f1; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">Fix Guide Preview — Fix #1</div>
-      <div style="font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 6px;">${teaserFix.title}</div>
-      <div style="font-size: 13px; color: #64748b; margin-bottom: 12px;">${teaserFix.description || ''}</div>
-      <div style="font-size: 12px; color: #94a3b8; font-style: italic;">Steps 2–5 + code snippets are included in the full Fix Guide →</div>
-    </div>` : '';
+    : `<tr><td style="padding:10px 0;color:#64748b;">Full details are in your report.</td></tr>`;
 
   const html = `<!DOCTYPE html>
 <html>
@@ -180,12 +171,14 @@ async function sendAuditEmail({ to, websiteUrl, pdfBuffer, overallScore, actionP
     <!-- Header -->
     <div style="background:#0f172a;border-radius:14px 14px 0 0;padding:28px 32px;text-align:center;">
       <div style="font-size:12px;font-weight:700;color:#818cf8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">FINNWORKS AI</div>
-      <h1 style="margin:0;font-size:22px;font-weight:800;color:white;line-height:1.2;">Your Website Audit</h1>
+      <h1 style="margin:0;font-size:22px;font-weight:800;color:white;line-height:1.2;">Your Audit Report is Ready</h1>
       <p style="margin:6px 0 0;font-size:14px;color:#94a3b8;">${domain}</p>
     </div>
 
-    <!-- Score block -->
+    <!-- Score + View Report CTA -->
     <div style="background:white;padding:28px 32px;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0;">
+
+      <!-- Score badge -->
       <div style="display:flex;align-items:center;gap:18px;padding:20px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:24px;">
         <div style="width:64px;height:64px;border-radius:50%;background:${scoreColor};display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;text-align:center;">
           <div style="font-size:26px;font-weight:800;color:white;line-height:1;">${scoreGrade}</div>
@@ -193,37 +186,41 @@ async function sendAuditEmail({ to, websiteUrl, pdfBuffer, overallScore, actionP
         <div>
           <div style="font-size:24px;font-weight:800;color:${scoreColor};line-height:1;">${overallScore}<span style="font-size:14px;color:#94a3b8;font-weight:400;">/100</span></div>
           <div style="font-size:14px;color:#1e293b;font-weight:600;margin-top:4px;">${scoreHeadline}</div>
-          <div style="font-size:12px;color:#94a3b8;margin-top:2px;">Your full PDF report is attached to this email</div>
+          <div style="font-size:12px;color:#94a3b8;margin-top:2px;">9 categories · full breakdown in your report</div>
         </div>
       </div>
 
-      <!-- What we found -->
-      <h2 style="font-size:16px;font-weight:700;margin:0 0 4px;color:#1e293b;">Here's what Finn found on ${domain}</h2>
-      <p style="font-size:13px;color:#64748b;margin:0 0 14px;">Top 3 priority issues — full details are in the attached report:</p>
+      <!-- Primary CTA -->
+      <div style="text-align:center;margin-bottom:24px;">
+        <a href="${reportUrl}" style="display:inline-block;background:#6366f1;color:white;padding:16px 40px;text-decoration:none;border-radius:10px;font-weight:700;font-size:16px;letter-spacing:0.01em;">View Your Full Report →</a>
+        <div style="font-size:11px;color:#94a3b8;margin-top:10px;">Your report is available for 14 days · PDF download on the report page</div>
+      </div>
+
+      <!-- What we found teaser -->
+      <h2 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#1e293b;">Top priority issues Finn found</h2>
+      <p style="font-size:13px;color:#64748b;margin:0 0 14px;">See every section in detail on your report page:</p>
       <table style="width:100%;border-collapse:collapse;">
         ${findingsHtml}
       </table>
-      <p style="font-size:13px;color:#94a3b8;margin:12px 0 0;">Plus a full 6-item action plan in your PDF — open the attachment to see everything.</p>
+      <p style="font-size:13px;color:#94a3b8;margin:12px 0 0;">Plus 5 more items in your full 8-point action plan.</p>
     </div>
 
     <!-- Upsell CTA -->
     <div style="background:#1e1b4b;padding:28px 32px;border:2px solid #6366f1;border-top:none;border-radius:0 0 14px 14px;">
       <div style="font-size:11px;font-weight:700;color:#818cf8;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Want to fix all of this?</div>
       <h3 style="margin:0 0 12px;font-size:20px;font-weight:800;color:white;">Get the step-by-step Fix Guide</h3>
-      <p style="font-size:14px;color:#c7d2fe;margin:0 0 18px;line-height:1.6;">The free audit shows you <em>what's wrong</em>. The Fix Guide shows you <em>exactly how to fix it</em> — numbered steps and copy-paste code snippets for every issue, specific to <strong>${domain}</strong>.</p>
-
-      ${teaserHtml}
+      <p style="font-size:14px;color:#c7d2fe;margin:0 0 18px;line-height:1.6;">The free audit shows you <em>what's wrong</em>. The Fix Guide shows you <em>exactly how to fix it</em> — numbered steps and copy-paste code snippets for every issue, written specifically for <strong>${domain}</strong>.</p>
 
       <ul style="list-style:none;padding:0;margin:0 0 20px;">
         <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>6 priority fixes specific to your site</li>
         <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>Numbered step-by-step instructions for each</li>
         <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>Copy-paste code snippets included</li>
-        <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>Time estimate for each fix so you can plan ahead</li>
+        <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>Time estimate for each fix</li>
         <li style="padding:5px 0;font-size:14px;color:#c7d2fe;"><span style="color:#10b981;font-weight:700;margin-right:8px;">✓</span>Ready to hand to your web developer</li>
       </ul>
 
       <div style="text-align:center;margin-bottom:16px;">
-        <div style="font-size:32px;font-weight:800;color:white;line-height:1;">$49 <span style="font-size:14px;color:#6366f1;font-weight:400;">NZD · one-time</span></div>
+        <div style="font-size:32px;font-weight:800;color:white;line-height:1;">$49 <span style="font-size:14px;color:#818cf8;font-weight:400;">USD · one-time</span></div>
         <div style="font-size:12px;color:#6366f1;margin-top:4px;">Generated fresh for ${domain} — not a generic template</div>
       </div>
 
@@ -249,24 +246,29 @@ async function sendAuditEmail({ to, websiteUrl, pdfBuffer, overallScore, actionP
     `  ${i + 1}. ${f.title} — Impact: ${f.impact || '—'}, Effort: ${f.effort || '—'}`
   ).join('\n');
 
-  const plainText = `Your FinnWorks Website Audit — ${domain}
+  const plainText = `Your FinnWorks Website Audit is Ready — ${domain}
 
 Your overall score is ${overallScore}/100 — ${scoreHeadline}.
 
-Your full PDF report is attached to this email.
+View your full report here:
+${reportUrl}
 
-HERE'S WHAT FINN FOUND ON ${domain.toUpperCase()}
-${topFixes.length > 0 ? topFixesText : '(See the attached PDF for full details.)'}
+Your report is available for 14 days. A PDF download button is on the report page.
 
-Plus a full 6-item action plan in the PDF.
+---
+
+TOP PRIORITY ISSUES FINN FOUND
+${topFixes.length > 0 ? topFixesText : '(See your report for full details.)'}
+
+Plus a full 8-point action plan on your report page.
 
 ---
 
 WANT TO FIX ALL OF THIS?
 
-Get the step-by-step Fix Guide — $49 (one-time)
+Get the step-by-step Fix Guide — $49 USD (one-time)
 
-The free audit shows you what's wrong. The Fix Guide shows you exactly how to fix it — numbered steps and copy-paste code snippets for every issue, specific to ${domain}.
+The free audit shows you what's wrong. The Fix Guide shows you exactly how to fix it.
 
 ✓ 6 priority fixes specific to your site
 ✓ Numbered step-by-step instructions for each
@@ -276,7 +278,6 @@ The free audit shows you what's wrong. The Fix Guide shows you exactly how to fi
 
 Get your Fix Guide → ${upgradeUrl}
 
-Generated fresh for ${domain} across all 9 audit categories.
 One-time purchase. Instant email delivery.
 
 ---
@@ -286,13 +287,11 @@ Questions? Just reply to this email — I read every one.
 — Finn, your AI website analyst
 finnworks.ai`;
 
-  const raw = buildRawMessage({
+  const raw = buildPlainMessage({
     to,
-    subject: `Your ${domain} audit: ${overallScore}/100 — here's what Finn found`,
+    subject: `Your ${domain} audit is ready — ${overallScore}/100`,
     html,
     text: plainText,
-    pdfBuffer,
-    pdfFilename: `finnworks-audit-${domain}.pdf`,
   });
 
   return sendRaw(raw);

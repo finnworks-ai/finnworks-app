@@ -1,5 +1,6 @@
 /**
  * Audit counter — persisted in Railway Redis.
+ * Falls back to an in-memory counter when REDIS_URL is not set (local dev).
  *
  * Key: "audit_count"
  * Seeded to SEED_COUNT on first use so the real count continues
@@ -12,12 +13,11 @@ const SEED_COUNT = 1247;
 const KEY = 'audit_count';
 
 let _client = null;
+let _memCount = null; // in-memory fallback when REDIS_URL is not set
 
 function getClient() {
   if (!_client) {
-    if (!process.env.REDIS_URL) {
-      throw new Error('REDIS_URL environment variable is not set');
-    }
+    if (!process.env.REDIS_URL) return null; // signal: use in-memory fallback
     _client = new Redis(process.env.REDIS_URL);
     _client.on('error', err => console.error('[counter] Redis error:', err.message));
   }
@@ -30,6 +30,10 @@ function getClient() {
  */
 async function incrementAuditCount() {
   const client = getClient();
+  if (!client) {
+    if (_memCount === null) _memCount = SEED_COUNT;
+    return ++_memCount;
+  }
   // SET key SEED_COUNT only if it doesn't exist, then INCR atomically
   await client.setnx(KEY, SEED_COUNT);
   const count = await client.incr(KEY);
@@ -42,6 +46,7 @@ async function incrementAuditCount() {
  */
 async function getAuditCount() {
   const client = getClient();
+  if (!client) return _memCount !== null ? _memCount : SEED_COUNT;
   const val = await client.get(KEY);
   return val ? parseInt(val, 10) : SEED_COUNT;
 }
