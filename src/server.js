@@ -22,6 +22,7 @@ const express = require('express');
 const Stripe = require('stripe');
 const { runAuditPipeline } = require('./pipeline');
 const { runFixGuidePipeline } = require('./fix-guide-pipeline');
+const { getAuditCount } = require('./counter');
 
 const path = require('path');
 const app = express();
@@ -182,6 +183,18 @@ app.get('/success', express.json(), (_req, res) => {
   </div>
 </body>
 </html>`);
+});
+
+// ─── Audit counter ────────────────────────────────────────────────────────────
+
+app.get('/api/audit-count', async (_req, res) => {
+  try {
+    const count = await getAuditCount();
+    res.json({ count });
+  } catch (err) {
+    console.error('[audit-count] Redis error:', err.message);
+    res.json({ count: 1247 }); // fallback to seed value if Redis unavailable
+  }
 });
 
 // ─── Health check ─────────────────────────────────────────────────────────────
